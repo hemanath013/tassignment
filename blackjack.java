@@ -21,7 +21,7 @@ interface cards{
 
 }
 class Game implements cards{
-    public int draw(Random random){
+    public int draw(Random random){//time complexity=2^n (recurrsion)
         int ran=random.nextInt(10)+2;
         if(card.get(ran)==0){
             return  draw(random);
@@ -54,7 +54,7 @@ public class blackjack {
     
       
         
-        while (true) {
+        while (true) {//time complexity O(n)
             System.out.print("Would you like to \"hit\" or \"stay\"? ");
             String choice = sc.nextLine().toLowerCase();
 
@@ -78,7 +78,7 @@ public class blackjack {
         System.out.println("His hidden card was a " + d2);
         System.out.println("His total was " + d_total + "\n");
 
-        while (d_total < 17) {
+        while (d_total < 17) {//time complexity O(n)
             int card = g.draw(random);
             d_total += card;
             System.out.println("Dealer chooses to hit");
