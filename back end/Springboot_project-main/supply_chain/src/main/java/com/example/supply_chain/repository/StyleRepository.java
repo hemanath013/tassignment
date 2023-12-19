@@ -10,7 +10,9 @@ public interface StyleRepository extends MongoRepository<style, String>{
 
 	List<style> findBy_id(long _id);
 
-	void deleteBy_id(long id);
+	void deleteBy_id(String _id);
+
+	boolean existsBystyleUid(String styleUid);
 
 
 }

@@ -10,6 +10,8 @@ public interface FacilitiesRepository extends MongoRepository<Facilities,String>
 
 	List<Facilities> findBy_id(long _id);
 
-	void deleteBy_id(long _id);
+	void deleteBy_id(String _id);
+
+	boolean existsByFacilitiesUid(String facilitiesUid);
 
 }

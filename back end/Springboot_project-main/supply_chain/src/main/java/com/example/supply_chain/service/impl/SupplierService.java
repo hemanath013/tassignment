@@ -2,6 +2,7 @@ package com.example.supply_chain.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,25 +23,33 @@ public class SupplierService implements SupplierServiceInterface{
 	
 	public List<Suppliers> getAllData(){
 		List<Suppliers> list = new ArrayList<>();
-		list = repo.findAll();
+		try {
+			list = repo.findAll();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
 		return list;
 	}
 	
-	public List<Suppliers> getById(long _id){
-		List<Suppliers> list = new ArrayList<>();
-		list = repo.findBy_id(_id);
-		return list;
+	public boolean existId(String SupplierUid) {		
+		return repo.existsBySupplierUid(SupplierUid);
 	}
 	
-	public void saveData(Suppliers s) {
-		repo.save(s);
+	public Suppliers getById(String supplierUid){
+		Optional<Suppliers> list = repo.findBySupplierUid(supplierUid);
+		return list.get();
+	}
+	
+	public Suppliers saveData(Suppliers s) {
+		return repo.save(s);
 	}
 	
 	public void update(Suppliers s) {
-		repo.save(s);
+		dao.updateSuppliers(s);;
 	}
 	
-	public void delete(long _id) {
+	public void delete(String _id) {
 		repo.deleteBy_id(_id);
 	}
 	
