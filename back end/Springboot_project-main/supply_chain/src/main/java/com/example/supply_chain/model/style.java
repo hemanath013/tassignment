@@ -67,6 +67,8 @@ public class style{
 	    	private String mid;
 	    	private int composition;
 	    }
+
+
 //	public style(String title2, String upload) {
 //		this.title=title2;
 //		this.image=upload;
