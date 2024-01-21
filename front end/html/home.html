@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a{
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+    </div>
+    <div id="info"></div>
+
+    <script>
+
+        const pages = 
+            {
+             home:"HOME",
+             about:"ABOUT",
+             contact:"CONTACT"
+            };
+            const containerEl = document.getElementById("container");
+            const homeEl = document.createElement("a");
+            homeEl.href = "/home";
+            homeEl.textContent = "HOME";
+            // const brEl = document.createElement("br");
+            // homeEl.appendChild(brEl);
+            containerEl.appendChild(homeEl);
+            const aboutEl = document.createElement("a");
+            aboutEl.href = "/about";
+            aboutEl.textContent = "ABOUT";
+            containerEl.appendChild(aboutEl);
+            const contactEl = document.createElement("a");
+            contactEl.href = "/contact";
+            contactEl.textContent = "CONTACT";
+            containerEl.appendChild(contactEl);
+            
+            addEventListener("click", (event) => {
+    event.preventDefault();
+    window.history.pushState({}, "", event.target.href);
+    win();
+ 
+    window.onpopstate = function() {
+      win();
+    };
+});
+ 
+function loadPage() {
+    win();
+}
+ function win(){
+    document.getElementById("info").innerHTML = `${window.location.pathname}`;
+ }
+loadPage();
+        
+    </script>
+</body>
+</html>

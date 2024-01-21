@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <style>
+        body {
+            background: rgb(162, 255, 160);
+            background: radial-gradient(circle, rgba(162, 255, 160, 1) 25%, rgba(0, 248, 3, 1) 100%);
+        }
+
+        .container {
+            border: 2px;
+            width: 700px;
+            margin-left: 350px;
+            margin-top: 70px;
+            display: flex;
+            flex-direction: column-reverse;
+            background-color: rgb(86, 255, 44);
+            box-shadow: 10px 10px 10px;
+            border-radius: 50px;
+        }
+
+        .container:hover {
+            background-color: rgb(0, 255, 98);
+        }
+
+        .india {
+            border: 2px solid;
+            width: 600px;
+            margin: 40px;
+            border-radius: 20px;
+            box-shadow: 10px 10px 10px;
+        }
+
+        .japan {
+            border: 2px solid;
+            width: 600px;
+            margin: 40px;
+            border-radius: 20px;
+            box-shadow: 10px 10px 10px;
+        }
+
+        .slovakia {
+            border: 2px solid;
+            width: 600px;
+            margin: 40px;
+            border-radius: 20px;
+            box-shadow: 10px 10px 10px;
+        }
+
+        h1 {
+            margin-left: 70px;
+
+        }
+
+        div {
+            background-color: rgb(251, 255, 0);
+        }
+
+        div:hover {
+            background-color: rgb(255, 123, 233);
+        }
+    </style> -->
+</head>
+
+<body>
+    <div class="container">
+        <div class="india">
+            <h1 id="digiClock"></h1>
+        </div>
+        <div class="japan">
+            <h1 id="japanDigiClock"></h1>
+        </div>
+        <div class="slovakia">
+            <h1 id="SlovakiaDigiClock"></h1>
+        </div>
+    </div>
+
+
+    <script>
+        const time = document.getElementById("digiClock")
+
+        function clock() {
+
+            const dat = new Date();
+            // const year = dat.getFullYear();
+            // const month = dat.getMonth() + 1;
+            // const date = dat.getDate();
+            // const day = dat.getDay();
+            // const hour = dat.getHours();
+            // const min = dat.getMinutes();
+            // const sec = dat.getSeconds();
+            const timeString = dat.toLocaleTimeString();
+            time.textContent = `IST : ${timeString} `;
+            const japanTimeString = dat.toLocaleTimeString("JP", { timeZone: "Asia/Tokyo" });
+            japanTime.textContent = `JapanTime : ${timeString}`;
+            const slovakiaTimeString = dat.toLocaleTimeString("SK", { timeZone: "Europe/Bratislava" });
+            SlovakiaTime.textContent = `SlovakiaTime : ${timeString}`;
+        }
+
+
+
+
+        // const japanTime = document.getElementById("japanDigiClock");
+
+        // function japanClock() {
+
+        //     const dat = new Date();
+        //     const hour = dat.getHours() + 3;
+        //     const min = dat.getMinutes() + 30;
+        //     const sec = dat.getSeconds();
+        //     const timeString = dat.toLocaleTimeString("JP", { timeZone: "Asia/Tokyo" });
+        //     japanTime.textContent = `JapanTime : ${timeString}`;
+        // }
+
+
+
+        // const SlovakiaTime = document.getElementById("SlovakiaDigiClock");
+
+        // function SlovakiaClock() {
+
+        //     const dat = new Date();
+        //     const hour = dat.getHours() + 4;
+        //     const min = dat.getMinutes() + 30;
+        //     const sec = dat.getSeconds();
+        //     const timeString = dat.toLocaleTimeString("SK", { timeZone: "Europe/Bratislava" });
+        //     SlovakiaTime.textContent = `SlovakiaTime : ${timeString}`;
+        // }
+
+        setInterval(() => {
+            clock();
+            // japanClock();
+            // SlovakiaClock();
+        }, 1000);
+
+    </script>
+</body>
+
+</html>
