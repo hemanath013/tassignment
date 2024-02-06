@@ -234,3 +234,25 @@ let name = "grace";
 
 // console.log(name);
 console.log(Math.floor(Math.random() * 52));
+
+
+
+const keyValues = [
+{
+    name : "_john",
+    value : "John"
+  }  ,
+  {
+    name : "_kar",
+    value : "karthik"
+  }  
+];
+const car = {
+  type : "Fait"
+};
+
+
+for(let i = 0; i < keyValues.length; i++){
+  const keyValue = keyValues[i];
+  console.log(keyValue);
+}

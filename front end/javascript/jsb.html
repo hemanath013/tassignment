@@ -3,25 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="jsb.css">
     <title>Document</title>
 </head>
+<style>
+  .container{
+    border: 6px solid;
+    margin: 60px;
+    height: 140px;
+    text-align: center;
+    padding-top: 50px;
+  }
+</style>
 <body>
-    
-      <div class="head">
-            <h1>colour flipper</h1>
-            <span id="color">#FFFFFF</span>
-        </div>
-        <div id="wrap">
-        <div class="contaner">
-            <button class="button"  id="button">
-                click here
-            </button>
-        </div>
+    <div id="container" class="container">
+    </div>
+    <script>
+     
+     const body = document.body
+    const divEl = document.getElementById("container");  
+    const brEl = document.createElement("br");   
+     const labelEl = document.createElement("label");
+     labelEl.textContent = 'Name';
+     const labelEl2 = document.createElement("label");
+     labelEl2.textContent = 'Name';
+
+     divEl.appendChild(labelEl);
+     
+
+     const input = document.createElement("input");
+     input.type = "text";
+     input.id = "input";
+     divEl.appendChild(input);
+     divEl.appendChild(brEl);
+
+     divEl.appendChild(labelEl2);
+
+     const input1 = document.createElement("input");
+     input1.type = "text";
+     input1.id = "input1";
+     divEl.appendChild(input1);
+
+     body.appendChild(divEl);
+
+     const pEl = document.createElement("p");
+     body.appendChild(pEl);
+         
+
+     let p = "";
+
+     function update(){
+        p = input1.value.toUpperCase();
+      pEl.textContent = p;
+      input.value = p;
+      input1.value = p;
+     }
+
+     function updateOne(){
+        p = input.value;
+      pEl.textContent = p;
+      input.value = p;
+      input1.value = p;
+               
         
+     }
 
-        </div>
-        <script src="jsb.js"></script>
 
-        </body>
+     input.addEventListener("input",updateOne);
+     input1.addEventListener("input",update);
+
+
+
+
+
+      
+     
+
+
+     
+
+
+
+
+    </script>
+    
+</body>
 </html>

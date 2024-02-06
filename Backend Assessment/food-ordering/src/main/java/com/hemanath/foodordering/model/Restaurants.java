@@ -16,7 +16,7 @@ public class Restaurants {
     private String restaurantId;
     private String name;
     private String description;
-    private int price;
+    // private int price;
     private String location;
     private String cuisine;
 }

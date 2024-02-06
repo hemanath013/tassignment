@@ -12,9 +12,9 @@ import java.util.Optional;
 @Service
 public class MenusService {
 
+    @Autowired
     private final MenusRepository menusRepository;
 
-    @Autowired
     public MenusService(MenusRepository menusRepository) {
         this.menusRepository = menusRepository;
     }
@@ -83,18 +83,18 @@ public class MenusService {
         }
     }
 
-    // New method to retrieve menus for a specific restaurant
+    // method to retrieve menus for a specific restaurant
     public List<Menus> getMenusByRestaurantId(String restaurantId) {
         return menusRepository.findByRestaurantId(restaurantId);
     }
 
     
-    // New method to search for menus based on a particular dish
+    // method to search for menus based on a particular dish
     public List<Menus> searchMenusByDish(String dish) {
         return menusRepository.findByNameContainingIgnoreCase(dish);
     }
 
-      // New method to search for menus based on a price range
+      // method to search for menus based on a price range
       public List<Menus> searchMenusByPriceRange(int minPrice, int maxPrice) {
         return menusRepository.findByPriceBetween(minPrice, maxPrice);
     }

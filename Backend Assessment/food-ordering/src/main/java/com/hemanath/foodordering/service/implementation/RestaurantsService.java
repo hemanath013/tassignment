@@ -51,22 +51,22 @@ public class RestaurantsService {
         }
     }
 
-   // New method to retrieve restaurants based on location
+   // method to retrieve restaurants based on location
    public List<Restaurants> getRestaurantsByLocation(String location) {
     return restaurantsRepository.findByLocation(location);
 }
 
-// New method to retrieve restaurants based on cuisine
+// method to retrieve restaurants based on cuisine
 public List<Restaurants> getRestaurantsByCuisine(String cuisine) {
     return restaurantsRepository.findByCuisine(cuisine);
 }
 
-// New method to find a specific restaurant by its ID
+// method to find a specific restaurant by its ID
 public Optional<Restaurants> findRestaurantById(String restaurantId) {
     return restaurantsRepository.findById(restaurantId);
 }
 
-// New method to find a specific restaurant by its name
+// method to find a specific restaurant by its name
 public Optional<Restaurants> findRestaurantByName(String name) {
     return restaurantsRepository.findByNameIgnoreCase(name);
 }

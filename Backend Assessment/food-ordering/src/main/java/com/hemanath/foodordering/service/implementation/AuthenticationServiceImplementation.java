@@ -1,13 +1,13 @@
 package com.hemanath.foodordering.service.implementation;
 
 import java.util.HashMap;
-import java.util.List;
+// import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
+// import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -52,6 +52,8 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
                                 .password(passwordEncoder.encode(request.getPassword()))
                                 .build();
 
+                                
+
                 if (user.getUsername().endsWith("_admin")) {
                         user.setRole(Role.ADMIN);
                 } else if (user.getUsername().endsWith("_staff")) {
@@ -71,9 +73,6 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
                 } catch (Exception e) {
                         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
                 }
-
-                Map<String, Object> extraClaims = new HashMap<>();
-                extraClaims.put("Authorities", user.getAuthorities());
                 String jwtToken = jwtService.generateToken(savedUser);
 
                 return new ResponseEntity<>(AuthenticationResponse.builder()
@@ -90,10 +89,7 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 
                 User user = userRepository.findByUsername(request.getUsername())
                                 .orElseThrow(() -> new UsernameNotFoundException("Username or Password invalid"));
-
-                Map<String, Object> extraClaims = new HashMap<>();
-                extraClaims.put("Authorities", user.getAuthorities());
-                String jwtToken = jwtService.generateToken(extraClaims, user);
+                String jwtToken = jwtService.generateToken(user);
                 return new ResponseEntity<>(AuthenticationResponse.builder()
                                 .token(jwtToken)
                                 .build(), HttpStatus.OK);

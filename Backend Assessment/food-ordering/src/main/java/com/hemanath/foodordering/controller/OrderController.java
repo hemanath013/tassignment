@@ -118,4 +118,10 @@ public class OrderController {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
+
+    // @GetMapping("/orders/byItem")
+    // public List<Order> getOrdersByItem(@RequestParam String itemId) {
+    //     return orderRepository.findOrdersByItem(itemId);
+    // }
+
 }

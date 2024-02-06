@@ -1,0 +1,90 @@
+<header class="section-header">  
+  <section class="header-main">
+    <div class="container">
+      <div class="row-serch">
+        <div class="brand">
+          <a href=" " class="navbar-brand" routerLink="/">
+              STARIM
+            </a> <!-- brand end.// -->
+        </div>
+        <div class="row-in-up">
+            <div class="in-up">
+
+                <ng-container *ngIf="this.auth.isAuthenticated();then notAuthenticated;else Authenticated">
+
+                </ng-container>
+                
+                <ng-template #notAuthenticated>
+                    
+                    <a href="#" class="btn-in-up" routerLink="/login"> 
+                        <i class="fa fa-user"></i>   <span class="ms-1 d-none d-sm-inline-block">Log in  </span> 
+                    </a>
+                    <a href="javascript:void(0);" routerLink="/register" class="btn-in-up"> 
+                        <i class="fa fa-heart"></i>  <span class="ms-1 d-none d-sm-inline-block">sign up </span>   
+                    </a>
+                    
+                </ng-template>
+
+                    <ng-template #Authenticated>
+                        <a data-bs-toggle="offcanvas" href="#offcanvas_cart" class="btn-in-up"> 
+                            <i class="fa fa-shopping-cart"></i> <span class="ms-1">Logout </span> 
+                        </a>
+                    </ng-template>
+
+
+
+            
+        </div>
+    </div> <!-- col end.// -->
+    <div class="row-drop">
+        <form action="#" class="">
+            <div class="input-group">
+                <input type="search" class="form-control" style="width:55%" placeholder="Search">
+                <select class="form-select">
+                    <option value="">All type</option>
+                    <option value="codex">Special</option>
+                    <option value="comments">Only best</option>
+                    <option value="content">Latest</option>
+                </select>
+                <button class="btn-serch">
+                    <i class="fa fa-search"></i> 
+                </button>
+            </div> <!-- input-group end.// -->
+        </form>
+    </div> <!-- col end.// -->
+    
+</div> <!-- row end.// -->
+</div> <!-- container end.// -->
+</section> <!-- header-main end.// -->
+
+<nav class="navbar">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbar_main">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link ps-0" href="#"> Categories </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hot offers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Menu item</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Menu name</a>
+                </li>
+                <!-- <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown">
+                        Others
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li> <a class="dropdown-item" href="#">Submenu one </a> </li>
+                        <li> <a class="dropdown-item" href="#">Submenu two</a> </li>
+                        <li> <a class="dropdown-item" href="#">Submenu three</a> </li>
+                    </ul>
+                </li> -->
+        </ul>
+    </div> <!-- collapse end.// -->
+</div> <!-- container end.// -->
+</nav> <!-- navbar end.// -->
+</header> <!-- section-header end.// -->

@@ -1,6 +1,7 @@
 package com.hemanath.foodordering.service.implementation;
 
 import com.hemanath.foodordering.model.Order;
+import com.hemanath.foodordering.repository.MenusRepository;
 import com.hemanath.foodordering.repository.OrderRepository;
 
 import java.sql.Date;
@@ -14,8 +15,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderService {
 
-    @Autowired
     private final OrderRepository orderRepository;
+
+    private final MenusRepository menusRepository;
 
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -42,7 +44,11 @@ public class OrderService {
 
     public Order createOrder(Order order) {
         try {
-            return orderRepository.save(order);
+            if(order.getItems().getQuantity() > menusRepository.findBy_id().getMaxOrderQuantity()){
+                return throw new Exception("Invalid quantity");
+            } else {
+                return orderRepository.save(order);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to create order. Please check the data and try again.");
@@ -77,25 +83,27 @@ public class OrderService {
         }
     }
 
-    // New method to retrieve orders for a specific user
+    // method to retrieve orders for a specific user
     public List<Order> getOrdersByUserId(String userId) {
         return orderRepository.findByCustomerId(userId);
     }
 
     
-    // New method to retrieve orders for a specific restaurant
+    //  method to retrieve orders for a specific restaurant
     public List<Order> getOrdersByRestaurantId(String restaurantId) {
         return orderRepository.findByRestaurantId(restaurantId);
     }
 
-    // New method to filter orders based on a date range
+    //  method to filter orders based on a date range
     public List<Order> getOrdersByDateRange(Date startDate, Date endDate) {
         return orderRepository.findByOrderTimeBetween(startDate, endDate);
     }
 
-      // New method to filter orders based on status
+      //  method to filter orders based on status
       public List<Order> getOrdersByStatus(String status) {
         return orderRepository.findByStatus(status);
     }
+
+    
 
 }

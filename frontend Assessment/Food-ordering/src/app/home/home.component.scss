@@ -1,0 +1,189 @@
+/* Reset some default browser styles */
+body, h1, h2, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header Styles */
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.header-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.header-subtitle {
+    font-size: 16px;
+}
+
+/* Search Form Styles */
+.search-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.form-select, .form-control {
+    width: 70%;
+    margin-bottom: 10px;
+}
+
+.search-button {
+    width: 100%;
+    background-color: #ffc107;
+    color: #343a40;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Food Categories Styles */
+.categories {
+    margin-top: 30px;
+}
+
+.category-item {
+    text-align: center;
+}
+
+.category-icon {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 10px;
+}
+
+/* Featured Restaurants Styles */
+.featured-restaurants {
+    margin-top: 30px;
+}
+
+.restaurant-card {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.restaurant-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.restaurant-details {
+    padding: 15px;
+}
+
+.restaurant-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.restaurant-cuisine {
+    font-size: 16px;
+    color: #868e96;
+}
+
+.restaurant-rating {
+    margin-top: 10px;
+}
+
+/* Recommended Items Styles */
+.recommended-items {
+    margin-top: 30px;
+}
+
+.item-card {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.item-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.item-details {
+    padding: 15px;
+}
+
+.item-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.item-price {
+    font-size: 16px;
+    color: #343a40;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 20px;
+}
+
+.modal-header {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.modal-body {
+    margin-bottom: 20px;
+}
+
+.modal-button {
+    width: 100%;
+    background-color: #ffc107;
+    color: #343a40;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .form-select, .form-control {
+        width: 100%;
+    }
+}
