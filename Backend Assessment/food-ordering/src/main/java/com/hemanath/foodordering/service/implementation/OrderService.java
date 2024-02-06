@@ -45,7 +45,7 @@ public class OrderService {
     public Order createOrder(Order order) {
         try {
             if(order.getItems().getQuantity() > menusRepository.findBy_id().getMaxOrderQuantity()){
-                return throw new Exception("Invalid quantity");
+                return throw new Exception("Invalid order quantity");
             } else {
                 return orderRepository.save(order);
             }
