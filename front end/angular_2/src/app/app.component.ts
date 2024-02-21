@@ -3,6 +3,7 @@ import { DemoService } from './services/demo.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { RouterOutlet } from '@angular/router';
+// import {Fo}
 
 
 
@@ -13,9 +14,18 @@ import { RouterOutlet } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+// //     const result = [];
+// //   return result;
+// //   }
+// //  }
+//   // a.myMap(item => item * 2)
+//   }
+receiveMessage(data: any) {
+this.recieveData=data;
+}
+recieveData='';
   title = 'angular_2';
-  
-//   va: number;
+  ti :string[] = ["xbckhvad","hhbh","yggugug","sfvsfvfv"]; 
 
 
 //   constructor(private demoService: DemoService){

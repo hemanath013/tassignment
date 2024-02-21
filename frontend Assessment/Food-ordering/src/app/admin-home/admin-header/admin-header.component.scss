@@ -1,0 +1,151 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+  }
+  
+  
+  /* Header Styles */
+  .section-header {
+    background-color: #fffdfd;
+    color: #fff;
+    padding: 10px 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .brand {
+    font-size: 1.5rem;
+    // font-weight: bold;
+    color: #fff;
+    font-family:OCR A Std, monospace ;
+  }
+  a{
+    text-decoration: none;
+  }
+  button{
+    text-decoration: none;
+  }
+  
+  .row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .row-serch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .brand {
+    margin-right: auto;
+  }
+  
+  .in-up {
+    margin-left: auto;
+  }
+  
+  .in-up a {
+    text-decoration: none;
+    color: #191818;
+    margin-right: 15px;
+    padding: 8px 16px;
+    border: 1px solid #191818;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  .in-up button {
+    text-decoration: none;
+    color: #191818;
+    margin-right: 15px;
+    padding: 8px 16px;
+    border: 1px solid #191818;
+    border-radius: 4px;
+    display: inline-block;
+    height: 36px;
+  }
+  
+  /* Navbar Styles */
+  .navbar {
+    background-color: #dddadaa8;
+    padding: 10px 0;
+  }
+  
+  .navbar-nav {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-item {
+    margin-right: 15px;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: #0f0f0f;
+  }
+  
+  /* Search Form Styles */
+  .input-group {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+  }
+  
+  .form-control {
+    border-radius: 0;
+  }
+  
+  .form-select {
+    border-radius: 0;
+    margin-right: 10px;
+  }
+  
+  .btn-primary {
+    border-radius: 0;
+    background-color: #007bff;
+    color: #fff;
+  }
+  .boo{
+    color: #a0acb8;
+  }
+  .navbar-brand{
+    color: #191818;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .row-top,
+    .row-serch {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .in-up {
+      margin-top: 10px;
+      margin-left: 0;
+    }
+  
+    .in-up a {
+      margin-right: 0;
+      margin-top: 5px;
+    }
+    .in-up button {
+      margin-right: 0;
+      margin-top: 5px;
+    }
+  }
+  

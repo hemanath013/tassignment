@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
+import { RegisterService } from '../service/register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +15,7 @@ export class RegisterComponent implements OnInit {
   errorMessage = '';
   // loading = false;
 
-  constructor(private auth:AuthService){}
+  constructor(private registerService:RegisterService,private router:Router,private auth:AuthService){}
 
   ngOnInit(): void {
       
@@ -22,28 +24,32 @@ export class RegisterComponent implements OnInit {
   onSubmit(){
     // this.loading = true;
 
-    this.auth.register(this.formData.username,this.formData.password,this.formData.firstName,this.formData.lastName,this.formData.phoneNumber,this.formData.address)
-    .subscribe({
-      next:data =>{
-
-        this.auth.storedToken(data.idToken);
-
-        console.log("token " + data.idToken );
-
+    this.registerService.register(this.formData)
+    .subscribe(
+      (data) => {console.log(data.token);
+        console.log(this.formData);
+        this.auth.storedToken(data.token);
+        this.router.navigate(['/login']);
+        
       },
-      error:data =>{
-        if (data.error.error.message == "INVALID_USERNAME"){
-          this.errorMessage = "Invalid username";
+      (error) => {
+        if (error.error.message=="INVALID_USERNAME") {
 
-        }else if (data.error.error.message == "USERNAME_exists"){
-          this.errorMessage = "username already exist";
+            this.errorMessage = "Invalid Email!";
+
+        } else if (error.error.message=="EMAIL_EXISTS") {
+
+            this.errorMessage = "Already Email Exists!";
 
         }else{
-          this.errorMessage = "Unknown error";
+
+            this.errorMessage = "Unknown error occured when creating this account!";
         }
-      }
-    })
-
+    }
+        
+        );
+  
+    }
+  
   }
-
-}
+    

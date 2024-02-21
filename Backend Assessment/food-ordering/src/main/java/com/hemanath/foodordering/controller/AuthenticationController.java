@@ -17,12 +17,12 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@CrossOrigin
+@CrossOrigin()
 public class AuthenticationController {
 
     private final AuthenticationService service;
      
-    @CrossOrigin(origins = "http://localhost:4200/register")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
         @RequestBody RegisterRequest request){

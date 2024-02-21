@@ -1,0 +1,36 @@
+.card{
+   border: 1px solid rgb(249, 246, 246);
+   border-radius: 10px;
+   box-shadow: 5px 5px 5px;
+   height: 80px;
+   text-align: center;
+
+}
+
+
+.content-body{
+  margin-top: 7px;
+    display : flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-content: space-around;
+    // grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+img{
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px;
+}
+.col-xl {
+    display: block;
+    width: 70px;
+
+}
+a{
+    text-decoration: none;
+}
+.text{
+    border: 1px solid black;
+    width: 5px;
+}
+

@@ -20,21 +20,17 @@ export class AuthService {
 
   canAccess(){
     if(!this.isAuthenticated()){
+      console.log("yes");
+      
 
       this.router.navigate(['/login']);
+    }else{
+      this.router.navigate(['/cart']);
 
     }
   }
 
-  
 
-  
-  register(username:string , password:string , firstName:string , lastName:string , phoneNumber:string , address:string ){
-
-     return this.http
-     .post<{idToken:string}>("localhost:8080/api/auth/register",{username , password , firstName , lastName , phoneNumber , address });
-
-  }
 
   storedToken(token:string){
     sessionStorage.setItem('token',token);

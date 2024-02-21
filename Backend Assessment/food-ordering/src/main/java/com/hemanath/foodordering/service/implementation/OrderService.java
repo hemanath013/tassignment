@@ -21,6 +21,7 @@ public class OrderService {
 
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
+        this.menusRepository = null;
     }
 
     public List<Order> getAllOrders() {
@@ -44,11 +45,11 @@ public class OrderService {
 
     public Order createOrder(Order order) {
         try {
-            if(order.getItems().getQuantity() > menusRepository.findBy_id().getMaxOrderQuantity()){
-                return throw new Exception("Invalid order quantity");
-            } else {
+            // if(order.getItems().getQuantity() > menusRepository.findBy_id().getMaxOrderQuantity()){
+            //     return throw new Exception("Invalid order quantity");
+            // } else {
                 return orderRepository.save(order);
-            }
+            
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to create order. Please check the data and try again.");

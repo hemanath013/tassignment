@@ -1,5 +1,39 @@
-<app-header></app-header>
+<section class="login-block">
+  <div class="container">
+      <div class="row ">
+          <div class="col login-sec">
+              <h2 class="text-center">Login Now</h2>
+              <form class="login-form" action="" #f="ngForm" novalidate (ngSubmit)="f.form.valid && onSubmit()" >
+              <div class="form-group">
+                  <label for="exampleInputEmail1" class="text-uppercase">Email</label>
+                  <input type="text"  class="form-control" name="text"  id="" placeholder="UserName" [(ngModel)]="formData.username" #UserName="ngModel" required>
+                  <span class="text-danger" *ngIf="this.submit && UserName.errors?.['required']" >
+                      UserName is required.
+                  </span>
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputPassword1" class="text-uppercase">Password</label>
+                  <input  class="form-control" type="password"  name="password" placeholder="password" id="" [(ngModel)]="formData.password" #password="ngModel" required >
+                  <span class="text-danger" *ngIf="this.submit && password.errors?.['required']">
+                      Password is required.
+                  </span>
+              </div>
+              <div class="form-group">
+                  <span class="text-danger" *ngIf="this.errorMessage" >
+                  <p [innerText]="this.errorMessage"></p>
+                  </span>
+                  <input  type="submit" class="btn btn-login float-right"   value="Login" (click)="submit=true">
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group">
+              Create new account ? Please <a  href="javascript:void(0);" routerLink="/register">Register</a>
+              </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</section>
 
-<p>login works!</p>
+
 
 <app-footer></app-footer>

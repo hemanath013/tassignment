@@ -1,0 +1,51 @@
+<header class="section-header">  
+  <section class="header-main">
+    <div class="container">
+      <div class="row-serch">
+        <div class="brand">
+          <a href=" " class="navbar-brand" routerLink="/">
+              STARIM<span class="boo">boo</span>
+              
+            </a> <!-- brand end.// -->
+        </div>
+        <div class="row-in-up">
+            <div class="in-up">
+
+                <ng-container *ngIf="this.auth.isAuthenticated();then Authenticated;else notAuthenticated">
+
+                </ng-container>
+                
+                <ng-template #notAuthenticated>
+                    
+                    <a href="#" class="btn-in-up" routerLink="/login"> 
+                        <i class="fa fa-user"></i>   <span class="ms-1-log">Log In  </span> 
+                    </a>
+                    <a href="javascript:void(0);" routerLink="/register" class="btn-in-up"> 
+                        <i class="fa fa-heart"></i>  <span class="ms-1-up">Sign Up </span>   
+                    </a>
+                    
+                </ng-template>
+
+                    <ng-template #Authenticated>
+
+                        <button type="button" class="btn-in-up"   mat-button (click)="openDialog()">
+                            <i class="fa fa-shopping-cart"></i> <span class="ms-1">Cart</span>
+                        </button>
+                          
+                        <a href="javascript:void(0);" routerLink="/login" class="btn-in-up" (click)="Onclick()"> 
+                            <i class="fa fa-shopping-cart"></i> <span class="ms-1">Logout </span> 
+                        </a>
+                    </ng-template>
+
+
+
+            
+        </div>
+    </div>
+    
+</div> 
+</div> 
+</section>
+
+
+</header> 

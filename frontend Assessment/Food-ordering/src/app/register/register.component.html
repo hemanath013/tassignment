@@ -13,7 +13,7 @@
             <div class="form-group">
               <label for="exampleInputEmail1" class="text-uppercase">UserName: </label>
 
-              <input type="text" class="form-control" name="name"  id=""  [(ngModel)]="formData.username"   #name = "ngModel" required>
+              <input type="text" class="form-control" name="name"  id=""  [(ngModel)]="formData.username"   #name="ngModel" required>
               <span class="text-danger" *ngIf="this.submit && name.errors?.['required']" >
                   Name is required.
               </span>
@@ -65,7 +65,7 @@
             <span class="text-danger" *ngIf="this.submit && name.errors?.['required']" >
                 phoneNumber is required.
             </span>
-         </div>
+         </div>y
 
 
          <div class="form-group">

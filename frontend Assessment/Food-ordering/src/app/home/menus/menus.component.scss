@@ -1,0 +1,55 @@
+.menus-container {
+    display: flex;
+    flex-direction: column;
+    padding: 4%;
+    align-items: center;
+    .menu-header {
+        padding: 1%;
+    }
+    .menu {
+        margin-bottom: 2%;
+        box-shadow: 0 6px 16px -5px rgba(20, 20, 20, 0.68);
+        width: 90%;
+        border-radius: 10px;
+        .header .title {
+            margin: 12px 0;
+        }
+        .header {
+            text-transform: uppercase;
+        }
+        .content {
+            p {
+                text-indent: 3%;
+                font-size: 19px;
+                padding-left: 2%;
+                line-height: 30px;
+            }
+        }
+            span {
+                font-size: 20px;
+                font-weight: 600;
+            }
+            button {
+                display: flex;
+                
+                background-color: #c5c7c3;
+                color: rgb(0, 0, 0);
+                font-size: 13px;
+                text-transform: uppercase;
+            }
+        
+    }
+}
+
+.menu:hover {
+    transform: scale(1.03);
+}
+
+h3 {
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+.title {
+    font-weight: 600;
+}

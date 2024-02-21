@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border: 2px solid;
+            padding: 4px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+        .pagination li {
+            margin-right: 5px;
+        }
+        .pagination li a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .pagination li a.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="searchInput" placeholder="Search...">
+    </div>
+
+
+
+    <div class="container" id="container">
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="editForm">
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name"><br>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email"><br>
+                    <label for="phone">Phone:</label><br>
+                    <input type="tel" id="phone" name="phone"><br><br>
+                    <input type="submit" value="Submit">
+                    <button type="button" class="close">Close</button>
+                </form>
+            </div>
+
+
+
+    </div>
+
+
+    <script>
+
+        const Data =[ {Id:1, Name:"Starim", Email:"Starim@yahoo.com", Phone:8056971611},
+    {Id:2, Name:"John Doe", Email:"john.doe@example.com", Phone:1234567890},
+    {Id:3, Name:"Alice Smith", Email:"alice.smith@example.com", Phone:9876543210},
+    {Id:4, Name:"Bob Johnson", Email:"bob.johnson@example.com", Phone:5678901234},
+    {Id:5, Name:"Emily Davis", Email:"emily.davis@example.com", Phone:3210987654},
+    {Id:6, Name:"Michael Wilson", Email:"michael.wilson@example.com", Phone:4567890123},
+    {Id:7, Name:"Jennifer Brown", Email:"jennifer.brown@example.com", Phone:7890123456},
+    {Id:8, Name:"Christopher Lee", Email:"christopher.lee@example.com", Phone:2345678901},
+    {Id:9, Name:"Jessica Taylor", Email:"jessica.taylor@example.com", Phone:8901234567},
+    {Id:10, Name:"Matthew Anderson", Email:"matthew.anderson@example.com", Phone:5432109876},
+    {Id:11, Name:"Amanda Martin", Email:"amanda.martin@example.com", Phone:9012345678},
+    {Id:12, Name:"David Thompson", Email:"david.thompson@example.com", Phone:6789012345},
+    {Id:13, Name:"Nicole Garcia", Email:"nicole.garcia@example.com", Phone:2109876543},
+    {Id:14, Name:"James Martinez", Email:"james.martinez@example.com", Phone:4567890123},
+    {Id:15, Name:"Daniel Hernandez", Email:"daniel.hernandez@example.com", Phone:7890123456},
+    {Id:16, Name:"Ashley Young", Email:"ashley.young@example.com", Phone:1234567890},
+    {Id:17, Name:"Robert King", Email:"robert.king@example.com", Phone:9876543210},
+    {Id:18, Name:"Laura White", Email:"laura.white@example.com", Phone:5678901234},
+    {Id:19, Name:"William Scott", Email:"william.scott@example.com", Phone:3210987654},
+    {Id:20, Name:"Melissa Green", Email:"melissa.green@example.com", Phone:4567890123}
+    ];
+    const itemsPerPage = 5;
+        let currentPage = 1;
+
+        const bodyEl = document.body
+        const containerEl = document.getElementById("container");
+        const tableEl = document.createElement("table");
+        tableEl.className = "table"
+        const tableHeadEl = document.createElement("thead");
+        const tableRow1El = document.createElement("tr");
+
+        const tD1El = document.createElement("th");
+        tD1El.innerHTML = "Id";
+        tableRow1El.appendChild(tD1El);
+
+        const tD2El = document.createElement("th");
+        tD2El.innerHTML = "Name";
+        tableRow1El.appendChild(tD2El);
+
+        const tD3El = document.createElement("th");
+        tD3El.innerHTML = "Email";
+        tableRow1El.appendChild(tD3El);
+
+        const tD4El = document.createElement("th");
+        tD4El.innerHTML = "Phone";
+        tableRow1El.appendChild(tD4El);
+
+
+        tableHeadEl.appendChild(tableRow1El);
+        tableEl.appendChild(tableHeadEl);
+
+        const tableBodyEl = document.createElement("tbody");
+
+        function renderTable(page) {
+            tableBodyEl.innerHTML = "";
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedData = Data.slice(start, end);
+
+         paginatedData.forEach((item) =>{
+            const tableRowEl = document.createElement("tr");
+         
+            const td1El = document.createElement("td");
+        td1El.innerHTML = item.Id;
+
+ 
+        const td2El = document.createElement("td");
+        td2El.innerHTML = item.Name;
+        const td3El = document.createElement("td");
+        td3El.innerHTML = item.Email;
+
+        const td4El = document.createElement("td");
+        td4El.innerHTML = item.Phone;
+
+        const td5El = document.createElement("td");
+        const editButtonEl = document.createElement("button");
+        editButtonEl.innerText = "Edit";
+
+        editButtonEl.addEventListener("click", function() {
+                editRow(item);
+            });
+        td5El.appendChild(editButtonEl);
+
+
+
+        const td6El = document.createElement("td");
+        const DeleteButtonEl = document.createElement("button");
+        // DeleteButtonEl.addEventListener("click",Delete());
+        DeleteButtonEl.innerText = "Delete";
+
+        DeleteButtonEl.addEventListener("click", function() {
+                deleteRow(tableRowEl);
+            });
+        
+        td6El.appendChild(DeleteButtonEl);
+
+        tableRowEl.appendChild(td1El);
+        tableRowEl.appendChild(td2El);
+        tableRowEl.appendChild(td3El);
+        tableRowEl.appendChild(td4El);
+        tableRowEl.appendChild(td5El);
+        tableRowEl.appendChild(td6El);
+        tableBodyEl.appendChild(tableRowEl);
+                   
+        });
+        tableEl.appendChild(tableBodyEl);
+        containerEl.appendChild(tableEl);
+    }
+       
+    // setupPagination();
+//         const tableRow2El = document.createElement("tr");
+
+
+//         const tD4El = document.createElement("td");
+//         tD4El.innerHTML = "Starim";
+//         tableRow2El.appendChild(tD4El);
+
+//         const tD5El = document.createElement("td");
+//         tD5El.innerHTML = "starim.yahoo.com";
+//         tableRow2El.appendChild(tD5El);
+
+//         const tD6El = document.createElement("td");
+//         tD6El.innerHTML = "8056971611";
+//         tableRow2El.appendChild(tD6El);
+
+//         const tD7El = document.createElement("td");
+//         const editButtonEl = document.createElement("button");
+//         editButtonEl.innerText = "Edit";
+//         tD7El.appendChild(editButtonEl);
+//         tableRow2El.appendChild(tD7El);
+
+//         const tD8El = document.createElement("td");
+//         const DeleteButtonEl = document.createElement("button");
+//         DeleteButtonEl.innerText = "Delete";
+//         tD8El.appendChild(DeleteButtonEl);
+//         tableRow2El.appendChild(tD8El);
+
+
+//         tableBodyEl.appendChild(tableRow2El);
+
+
+//         const tableRow3El = document.createElement("tr");
+
+
+// const tD9El = document.createElement("td");
+// tD9El.innerHTML = "Hana";
+// tableRow3El.appendChild(tD9El);
+
+// const tD10El = document.createElement("td");
+// tD10El.innerHTML = "Hana.yahoo.com";
+// tableRow3El.appendChild(tD10El);
+
+// const tD11El = document.createElement("td");
+// tD11El.innerHTML = "9068953416";
+// tableRow3El.appendChild(tD11El);
+
+// const tD12El = document.createElement("td");
+// const editButton2El = document.createElement("button");
+// editButton2El.innerText = "Edit";
+// tD12El.appendChild(editButton2El);
+// tableRow3El.appendChild(tD12El);
+
+// const tD13El = document.createElement("td");
+// const DeleteButton2El = document.createElement("button");
+// DeleteButton2El.innerText = "Delete";
+// tD13El.appendChild(DeleteButton2El);
+// tableRow3El.appendChild(tD13El);
+
+
+// tableBodyEl.appendChild(tableRow3El);
+
+
+function deleteRow(row) {
+            row.remove();
+        }
+
+        function editRow(item) {
+            document.getElementById("myModal").style.display = "block";
+            document.getElementById("name").value = item.Name;
+            document.getElementById("email").value = item.Email;
+            document.getElementById("phone").value = item.Phone;
+
+            document.getElementById("editForm").onsubmit = function(event) {
+                event.preventDefault();
+                item.Name = document.getElementById("name").value;
+                item.Email = document.getElementById("email").value;
+                item.Phone = document.getElementById("phone").value;
+                const index = Data.findIndex(i => i.Id === item.Id);
+                Data[index] = item;
+            console.log(index);
+            console.log(Data[index]);
+                console.log("Edited Item:", item);
+                document.getElementById("myModal").style.display = "none";
+                closeModal();
+            };
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+        const closeButtons = document.querySelectorAll(".close");
+        closeButtons.forEach(button => {
+            button.onclick = function() {
+                closeModal();
+            };
+        });
+
+
+        function setupPagination() {
+            const totalPages = Math.ceil(Data.length / itemsPerPage);
+            const paginationEl = document.createElement("ul");
+            paginationEl.className = "pagination";
+            paginationEl.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+                a.href = "#";
+                a.textContent = i;
+                if (i === currentPage) {
+                    a.classList.add("active");
+                }
+                a.addEventListener("click", function() {
+                    currentPage = i;
+                    renderTable(currentPage);
+                    updatePagination();
+                });
+                li.appendChild(a);
+                paginationEl.appendChild(li);
+            }
+
+            containerEl.appendChild(paginationEl);
+        }
+        
+        function updatePagination() {
+            const pages = document.querySelectorAll(".pagination li a");
+            pages.forEach((page, index) => {
+                if (index + 1 === currentPage) {
+                    page.classList.add("active");
+                } else {
+                    page.classList.remove("active");
+                }
+            });
+        }
+
+
+        let filteredValues = [];
+
+        document.getElementById("searchInput").addEventListener("input", function() {
+            currentPage = 1;
+            const paginationEl = document.querySelector("ul");
+            paginationEl.style.display = 'none';
+            renderTable(currentPage, this.value.trim());
+            // setupPagination();
+  filteredValues = [];
+ 
+ 
+  Data.filter((element) => {
+    if (element.Id === Number(this.value)) {
+      filteredValues.push(element);
+    }
+  });
+       console.log(filteredValues);
+
+       setupFilterPagination();
+       renderFilterTable(1);
+        });
+
+        function setupFilterPagination() {
+            const totalPages = Math.ceil(filteredValues.length / itemsPerPage);
+            const paginationEl = document.createElement("ul");
+            paginationEl.className = "pagination";
+            paginationEl.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+                a.href = "#";
+                a.textContent = i;
+                if (i === currentPage) {
+                    a.classList.add("active");
+                }
+                a.addEventListener("click", function() {
+                    currentPage = i;
+                    renderTable(currentPage);
+                    updatePagination();
+                });
+                li.appendChild(a);
+                paginationEl.appendChild(li);
+            }
+
+            containerEl.appendChild(paginationEl);
+        }
+
+        function renderFilterTable(page) {
+            tableBodyEl.innerHTML = "";
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedData = filteredValues.slice(start, end);
+
+         paginatedData.forEach((item) =>{
+            const tableRowEl = document.createElement("tr");
+         
+            const td1El = document.createElement("td");
+        td1El.innerHTML = item.Id;
+
+ 
+        const td2El = document.createElement("td");
+        td2El.innerHTML = item.Name;
+        const td3El = document.createElement("td");
+        td3El.innerHTML = item.Email;
+
+        const td4El = document.createElement("td");
+        td4El.innerHTML = item.Phone;
+
+        const td5El = document.createElement("td");
+        const editButtonEl = document.createElement("button");
+        editButtonEl.innerText = "Edit";
+
+        editButtonEl.addEventListener("click", function() {
+                editRow(item);
+            });
+        td5El.appendChild(editButtonEl);
+
+
+
+        const td6El = document.createElement("td");
+        const DeleteButtonEl = document.createElement("button");
+        // DeleteButtonEl.addEventListener("click",Delete());
+        DeleteButtonEl.innerText = "Delete";
+
+        DeleteButtonEl.addEventListener("click", function() {
+                deleteRow(tableRowEl);
+            });
+        
+        td6El.appendChild(DeleteButtonEl);
+
+        tableRowEl.appendChild(td1El);
+        tableRowEl.appendChild(td2El);
+        tableRowEl.appendChild(td3El);
+        tableRowEl.appendChild(td4El);
+        tableRowEl.appendChild(td5El);
+        tableRowEl.appendChild(td6El);
+        tableBodyEl.appendChild(tableRowEl);
+                   
+        });
+        tableEl.appendChild(tableBodyEl);
+        containerEl.appendChild(tableEl);
+    }
+        
+        function updatePagination() {
+            const pages = document.querySelectorAll(".pagination li a");
+            pages.forEach((page, index) => {
+                if (index + 1 === currentPage) {
+                    page.classList.add("active");
+                } else {
+                    page.classList.remove("active");
+                }
+            });
+        }
+
+        setupPagination();
+
+        renderTable(currentPage);
+        
+
+
+
+
+
+
+       
+        // bodyEl.appendChild(containerEl);
+
+      
+        
+    
+    </script>
+</body>
+</html>

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/menus")
 @PreAuthorize ("hasRole('ADMIN') or hasRole('OWNER') or hasRole('STAFF') or hasRole('CUSTOMER')")
 public class MenusController {
@@ -23,7 +24,8 @@ public class MenusController {
     public MenusController(MenusService menusService) {
         this.menusService = menusService;
     }
-
+     
+   
     @GetMapping
     public ResponseEntity<List<Menus>> getAllMenus() {
         List<Menus> menus = menusService.getAllMenus();

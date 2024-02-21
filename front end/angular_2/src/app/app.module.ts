@@ -13,6 +13,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClient, HttpClientModule} from '@angular/common/http'
 import { LoginService } from './services/login.service';
 import { RouterModule, Routes } from '@angular/router';
+import { ChildComponent } from './child/child.component';
+import { UsersComponent } from './users/users.component';
+import { ModelsComponent } from './models/models.component';
+
+
 
 const routes: Routes = [
   {path:'home',component:HomeComponent},
@@ -32,19 +37,21 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     FormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
 
   ],
   declarations: [
-    // AppComponent,
-    // ParentComponent,
-    // ChildComponent,
-    // CustomFilterPipe,
+    AppComponent,
+    CustomFilterPipe,
     AppComponent,
     LoginComponent,
     HomeComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    ChildComponent,
+    UsersComponent,
+    ModelsComponent
     
   ],
   providers: [LoginService,HttpClient],

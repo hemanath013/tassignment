@@ -27,7 +27,8 @@ export class LoginComponent {
       console.log(this.formData);
     },
     (error) => {console.log(error)
-    console.log("error ",this.formData);}
+    console.log("error ");
+  }
       
       );
 
