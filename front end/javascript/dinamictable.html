@@ -283,7 +283,9 @@ function deleteRow(row) {
             console.log(index);
             console.log(Data[index]);
                 console.log("Edited Item:", item);
+                // renderFilterTable();
                 document.getElementById("myModal").style.display = "none";
+
                 closeModal();
             };
         }
@@ -351,7 +353,10 @@ function deleteRow(row) {
   Data.filter((element) => {
     if (element.Id === Number(this.value)) {
       filteredValues.push(element);
+    } if (element.Name === String(this.value)) {
+      filteredValues.push(element);
     }
+
   });
        console.log(filteredValues);
 
