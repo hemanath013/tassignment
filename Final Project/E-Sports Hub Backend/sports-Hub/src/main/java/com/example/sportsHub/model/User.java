@@ -26,6 +26,7 @@ public class User implements UserDetails{
     private Role role;
     private String address;
     private String phone;
+    private List<Order> orders;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,0 +1,25 @@
+<div *ngIf="myCart !== []">
+  <div class="cart-container">
+    <h2>Shopping Cart</h2>
+    <div class="cart-items">
+      <div *ngFor="let item of myCart" class="cart-item">
+        <span>{{ item.name }}</span>
+        <span>{{ item.price | currency }}</span>
+        <button (click)="decreaseQuantity(item)">-</button>
+        <span>{{ item.quantity }}</span>
+        <button (click)="increaseQuantity(item)">+</button>
+        <button (click)="removeItem(item)">Remove</button>
+      </div>
+    </div>
+
+<div *ngIf="myCart !== []">
+    <div class="cart-summary">
+      <h3>Total: {{ getTotal() | currency }}</h3>
+      <a href="javascript:void(0)"routerLink="checkout"><button  >Checkout</button></a>
+    </div>
+  </div>
+  </div>
+</div>
+<div *ngIf="myCart === []">
+<h1>Your Cart is Empty</h1>
+</div>

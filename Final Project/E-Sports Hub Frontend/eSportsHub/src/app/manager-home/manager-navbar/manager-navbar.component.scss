@@ -1,0 +1,48 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  .Manager{
+    margin-left: 40%;
+  }
+
+
+  .example-container {
+    
+    width: fit-content;
+    height: 100%;
+    border: 1px solid rgba(116, 115, 115, 0.5);
+  }
+  
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .example-sidenav {
+    padding: 20px;
+  }
+  
+  .navicon{
+    display: flex;
+
+  }
+  .nav-buttom{
+    color: rgb(255, 255, 255);
+    background-color: rgb(10, 9, 9);
+    width: 150px;
+  }
+
+mat-toolbar{
+  
+  background-color: rgb(235, 233, 233);
+  border-radius: 4px solid black;
+  box-shadow: 10px 10px 10px white;
+}
+span{
+  color: black;
+}
+mat-drawer-container{
+  background-color: rgba(197, 193, 193, 2);
+}

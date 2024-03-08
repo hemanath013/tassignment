@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.sportsHub.model.Role;
 import com.example.sportsHub.model.User;
 import com.example.sportsHub.service.implementation.UserService;
 
@@ -68,5 +69,29 @@ public class UserController {
     //     List<User> users = userService.getUsersByPlacedOrders();
     //     return new ResponseEntity<>(users, HttpStatus.OK);
     // }
+
+    @GetMapping("/username/asc")
+    public ResponseEntity<List<User>> getUsersByUsernameAscendingOrder() {
+        List<User> users = userService.getUsersByUsernameAscendingOrder();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/username/desc")
+    public ResponseEntity<List<User>> getUsersByUsernameDescendingOrder() {
+        List<User> users = userService.getUsersByUsernameDescendingOrder();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/phone/{phone}")
+    public ResponseEntity<List<User>> getUsersByPhone(@PathVariable String phone) {
+        List<User> users = userService.getUsersByPhone(phone);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/role/{role}")
+    public ResponseEntity<List<User>> getUsersByRole(@PathVariable Role role) {
+        List<User> users = userService.getUsersByRole(role);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
 }

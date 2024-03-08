@@ -1,0 +1,12 @@
+<div class="product-slider" (mouseenter)="stopAutoSlide()" (mouseleave)="startAutoSlide()">
+    <div class="slides" [style.transform]="'translateX(' + -currentIndex * slideWidth + '%)'">
+      <div *ngFor="let image of images" class="slide">
+            <img [src]="image.path" alt="Slide">
+            <!-- <a [routerLink]="image.link"></a> -->
+         
+      </div>
+    </div>
+    <button (click)="prevSlide()">Previous</button>
+    <button (click)="nextSlide()">Next</button>
+  </div>
+  

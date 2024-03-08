@@ -1,0 +1,32 @@
+<mat-toolbar>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"   mat-button (click)="drawer.toggle()" >
+        <mat-icon><img src="/assets/icons/menu.png" alt="" height="20px" width="20px"></mat-icon>
+    </button>
+    <span class="Manager">MANAGER</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon><img src="/assets/icons/Accont.png" alt="" height="20px" width="20px" routerLink="/manager-details"></mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+
+        <div class="navicon"><img src="/assets/icons/users.png" alt="" ><button type="button" class="nav-buttom" routerLink="/manager-products">products</button></div><br>
+        <div class="navicon"><img src="/assets/icons/restaurants.png" alt="" ><button type="button" class="nav-buttom" routerLink="/manager-orders">Orders</button></div><br>
+
+        <div class="navicon"><img src="/assets/icons/menus.png" alt="" ><button type="button" class="nav-buttom" routerLink="/manager-offer">Offers</button></div><br>
+        <!-- <ng-container *ngIf="showFiller">
+            <p>Lorem, ipsum dolor sit amet consectetur.</p>
+        </ng-container> -->
+        <!-- <button (click)="showFiller = !showFiller" mat-raised-button>
+            Toggle extra text
+        </button> -->
+    </mat-drawer>
+
+    <!-- <div class="example-sidenav-content">
+        <button type="button" mat-button (click)="drawer.toggle()">
+            Toggle sidenav
+        </button>
+    </div> -->
+</mat-drawer-container>

@@ -3,6 +3,7 @@ package com.example.sportsHub.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.sportsHub.model.Role;
 import com.example.sportsHub.model.User;
 import com.example.sportsHub.repository.UserRepository;
 
@@ -58,4 +59,24 @@ public class UserService {
     // public List<User> getUsersByPlacedOrders() {
     //     return userRepository.findUsersByPlacedOrders();
     // }
+
+
+    public List<User> getUsersByUsernameAscendingOrder() {
+        return userRepository.findByOrderByUsernameAsc();
+    }
+
+    public List<User> getUsersByUsernameDescendingOrder() {
+        return userRepository.findByOrderByUsernameDesc();
+    }
+
+    public List<User> getUsersByPhone(String phone) {
+        return userRepository.findByPhone(phone);
+    }
+
+    public List<User> getUsersByRole(Role role) {
+        return userRepository.findByRole(role);
+    }
+
+
+
 }

@@ -13,7 +13,6 @@ import { AdminAddUsersComponent } from './admin-add-users/admin-add-users.compon
 export interface PeriodicElement {
   id: string;
   username: string;
-  // password: string;
   role: string;
   firstName: string;
   lastName: string;

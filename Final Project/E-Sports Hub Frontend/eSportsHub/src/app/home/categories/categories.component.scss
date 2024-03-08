@@ -1,0 +1,60 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+/* Category Start */
+.row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Adjust min and max width as needed */
+    grid-gap: 20px; /* Adjust the gap between cards */
+}
+
+.category-card {
+    border: 1px solid #ddd;
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+    background-color: #fff;
+    padding: 10px 16px;
+    text-align: center; /* Center align content */
+    transition: box-shadow 0.3s ease; /* Add transition for hover effect */
+}
+
+.category-card:hover {
+    box-shadow: 0 0.25rem 0.5rem rgb(0 0 0 / 15%); /* Change box shadow on hover */
+}
+
+.category-card a {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+}
+
+.category-card-img {
+    height: 140px; /* Set a fixed height for the image container */
+    overflow: hidden; /* Hide any overflow */
+}
+
+.category-card-img img {
+    width: 100%; /* Ensure the image fills the container */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s ease; /* Smooth transition on hover */
+}
+
+.category-card:hover .category-card-img img {
+    transform: scale(1.1); /* Scale up image on hover */
+}
+
+.category-card-body {
+    padding: 10px 0; /* Adjust padding for the category card body */
+}
+
+.category-card h5 {
+    margin: 0; /* Remove default margin */
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+}
+
+@media (max-width: 768px) {
+    .row {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust columns for smaller screens */
+    }
+}
+/* Category End */
