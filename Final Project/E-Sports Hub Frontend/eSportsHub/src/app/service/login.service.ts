@@ -17,10 +17,25 @@ export class LoginService {
     console.log(formData);
     
     return this.http.post<LoginResponse>(environment.loginUrl,formData);
+     
 
   }
+
+  isAuthenticated() : boolean{
+    if(localStorage.getItem('isLogin') === 'true'){
+      return true;
+    }
+    else{
+      return false;
+    }
+ }
+
+
+
 }
-interface LoginResponse{
+ export interface LoginResponse{
+  user_id: string | null;
+  role:string;
   token: string;
  
  }

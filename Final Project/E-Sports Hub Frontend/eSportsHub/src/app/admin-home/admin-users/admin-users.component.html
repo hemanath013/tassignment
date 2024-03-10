@@ -1,80 +1,86 @@
+<!-- admin-users.component.html -->\
+
 <app-admin-header></app-admin-header>
 <app-admin-navbar></app-admin-navbar>
-
-<div>
 <div class="right">
-    <div *ngFor="let m of ELEMENT_DATA">
-    
-    
-    </div>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    <!-- _id Column -->
+    <!-- <ng-container matColumnDef="_id">
+      <th mat-header-cell *matHeaderCellDef>_id</th>
+      <td mat-cell *matCellDef="let user">
+        <span *ngIf="!user.editing">{{ user._id }}</span>
+        <input *ngIf="user.editing" type="text" [(ngModel)]="user._id" (keyup.enter)="toggleEdit(user)">
+      </td>
+    </ng-container> -->
   
-    <!-- <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-    </mat-form-field> -->
+    <!-- user_id Column -->
+    <ng-container matColumnDef="user_id">
+      <th mat-header-cell *matHeaderCellDef>user_id</th>
+      <td mat-cell *matCellDef="let user">
+        <span *ngIf="!user.editing">{{ user.user_id }}</span>
+        <input *ngIf="user.editing" type="text" [(ngModel)]="user.user_id" (keyup.enter)="toggleEdit(user)">
+      </td>
+    </ng-container>
   
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-       <!-- Position Column -->
+    <!-- username Column -->
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef>username</th>
+      <td mat-cell *matCellDef="let user">
+        <span *ngIf="!user.editing">{{ user.username }}</span>
+        <input *ngIf="user.editing" type="text" [(ngModel)]="user.username" (keyup.enter)="toggleEdit(user)">
+      </td>
+    </ng-container>
   
+    <!-- email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>email</th>
+      <td mat-cell *matCellDef="let user">
+        <span *ngIf="!user.editing">{{ user.email }}</span>
+        <input *ngIf="user.editing" type="text" [(ngModel)]="user.email" (keyup.enter)="toggleEdit(user)">
+      </td>
+    </ng-container>
   
-      <!-- Name Column -->
-      <ng-container matColumnDef="_id">
-        <th mat-header-cell *matHeaderCellDef>_id</th>
-        <td mat-cell *matCellDef="let m"> {{m._id}} </td>
-      </ng-container>
+    <!-- address Column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef>address</th>
+      <td mat-cell *matCellDef="let user">
+        <span *ngIf="!user.editing">{{ user.address }}</span>
+        <input *ngIf="user.editing" type="text" [(ngModel)]="user.address" (keyup.enter)="toggleEdit(user)">
+      </td>
+    </ng-container>
   
-      <!-- Weight Column -->
-      <ng-container matColumnDef="user_id">
-        <th mat-header-cell *matHeaderCellDef>user_id </th>
-        <td mat-cell *matCellDef="let m"> {{m.user_id}} </td>
-      </ng-container>
+    <!-- phone Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>phone</th>
+      <td mat-cell *matCellDef="let user">
+        <span *ngIf="!user.editing">{{ user.phone }}</span>
+        <input *ngIf="user.editing" type="text" [(ngModel)]="user.phone" (keyup.enter)="toggleEdit(user)">
+      </td>
+    </ng-container>
   
-      <!-- Symbol Column -->
-      <!-- <ng-container matColumnDef="password">
-        <th mat-header-cell *matHeaderCellDef>password </th>
-        <td mat-cell *matCellDef="let m"> {{m.password}} </td>
-      </ng-container> -->
+    <!-- role Column -->
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>role</th>
+      <td mat-cell *matCellDef="let user">
+        <span *ngIf="!user.editing">{{ user.role }}</span>
+        <input *ngIf="user.editing" type="text" [(ngModel)]="user.role" (keyup.enter)="toggleEdit(user)">
+      </td>
+    </ng-container>
   
-      <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef> username </th>
-        <td mat-cell *matCellDef="let m"> {{m.username}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> email </th>
-        <td mat-cell *matCellDef="let m"> {{m.email}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="address">
-        <th mat-header-cell *matHeaderCellDef> address </th>
-        <td mat-cell *matCellDef="let m"> {{m.address}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef> phone </th>
-        <td mat-cell *matCellDef="let m"> {{m.phone}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef> role </th>
-        <td mat-cell *matCellDef="let m"> {{m.role}} </td>
-      </ng-container>
+    <!-- Edit Action Column -->
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let user">
+        <button mat-icon-button (click)="toggleEdit(user)">
+          <mat-icon>{{ user.editing ? 'save' : 'edit' }}</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
-      <!-- <ng-container matColumnDef="ACCESS">
-        <th mat-header-cell *matHeaderCellDef> ACCESS </th>
-        <td mat-cell><button type="button">Edit</button> </td>
-      </ng-container> -->
-     
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
-      <!-- Row shown when there is no matching data. -->
-      <!-- <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-      </tr> -->
-    </table> 
-  </div>
+  <!-- Header and Row Definitions -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</mat-table>
 
+<button mat-button color="primary" (click)="updateData()">Update</button>
 </div>
-  

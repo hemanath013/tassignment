@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.sportsHub.AOP.ProductNameCounterAspect;
 import com.example.sportsHub.model.Product;
+import com.example.sportsHub.model.ProductDTO;
 import com.example.sportsHub.repository.ProductRepository;
+import com.example.sportsHub.service.FileService;
 import com.example.sportsHub.service.ProductService;
 
 import java.util.List;
@@ -19,9 +21,24 @@ public class ProductServiceImpl implements ProductService {
       @Autowired
     private ProductNameCounterAspect counterAspect;
 
+    @Autowired
+    FileService fileService;
+
+
     @Override
-    public Product createProduct(Product product) {
-        return productRepository.save(product);
+    public Product createProduct(ProductDTO product) {
+        String url = fileService.saveFile(product.getImage(),"C:/Users/STARIM/Desktop/2/FULLSTACK/Final Project/E-Sports Hub Backend/sports-Hub/src/main/resources/static/img");
+        Product newProduct = new Product();
+        newProduct.setBranchDetails(product.getBranchDetails());
+        newProduct.setProduct_id(product.getProduct_id());
+        newProduct.setName(product.getName());
+        newProduct.setDescription(product.getDescription());
+        newProduct.setPrice(product.getPrice());
+        newProduct.setCategory(product.getCategory());
+        newProduct.setBrand(product.getBrand());
+        newProduct.setTotalStock(product.getTotalStock());
+        newProduct.setImage(url);
+        return productRepository.save(newProduct);
     }
 
     @Override
@@ -88,7 +105,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public int getCountOfGetProductsByName() {
+    public int getCountOfGetProductsByName( String name) {  
         return counterAspect.getCount();
     }
 

@@ -16,10 +16,15 @@ export class AdminProductsService {
     return this.http.get<products>(environment.productGetUrl);
 
   }
+  updateData(products: products[]): Observable<any> {
+    return this.http.put(`${environment.getOrdersUrl}/${products[0].product_id}`, products);
+  }
+
+  
 
 }
 
-export interface products{product_id:string,name:string,description:string,price:number,category:string,brand:string,totalStock:number,branchDetails:[]}
+export interface products{product_id:string,name:string,description:string,price:number,category:string,brand:string,totalStock:number,branchDetails:[],editing?: boolean,image:string}
 
 export interface BranchDetails {
   branchId: string;

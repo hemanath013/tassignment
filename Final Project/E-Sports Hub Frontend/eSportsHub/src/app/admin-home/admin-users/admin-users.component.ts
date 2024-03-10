@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdminUsersService } from './admin-users.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DataSource } from '@angular/cdk/collections';
@@ -14,13 +14,15 @@ import { UserAddComponent } from './user-add/user-add.component';
 })
 export class AdminUsersComponent {
   ELEMENT_DATA:any;
-  displayedColumns: string[] = ['_id','user_id','username','email','address','phone','role',]; 
+  displayedColumns: string[] = ['user_id','username','email','address','phone','role','edit']; 
   dataSource: MatTableDataSource<user>;
 
   constructor(private service:AdminUsersService,public dialog: MatDialog) {
     this.dataSource = new MatTableDataSource<user>(this.ELEMENT_DATA);
     this.get();
   }
+
+
 
   get(){
     this.service.getData().subscribe(
@@ -30,6 +32,26 @@ export class AdminUsersComponent {
        });
   }
 
+  toggleEdit(user: user): void {
+    user.editing = !user.editing;
+    if (!user.editing) {
+      // Logic to save changes locally
+    }
+  }
+
+  updateData(): void {
+    // Assuming you have a method in your service to update data
+    this.service.updateData(this.ELEMENT_DATA).subscribe(
+      () => {
+        console.log("Data updated successfully");
+        // Optionally, refresh data after successful update
+        this.get();
+      },
+      (error) => {
+        console.error("Error updating data:", error);
+      }
+    );
+  }
 
 
 }

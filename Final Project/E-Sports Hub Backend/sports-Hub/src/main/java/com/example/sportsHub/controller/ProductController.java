@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.sportsHub.AOP.ProductNameCounterAspect;
 import com.example.sportsHub.model.Product;
+import com.example.sportsHub.model.ProductDTO;
 import com.example.sportsHub.service.ProductService;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class ProductController {
     private ProductNameCounterAspect counterAspect;
 
     @PostMapping("/create")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(@ModelAttribute ProductDTO product) {
         Product createdProduct = productService.createProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
@@ -96,8 +97,8 @@ public class ProductController {
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<Integer> getCountOfGetProductsByName() {
-        int count = productService.getCountOfGetProductsByName();
+    public ResponseEntity<Integer> getCountOfGetProductsByName(@PathVariable String name) {
+        int count = productService.getCountOfGetProductsByName(name);
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
 

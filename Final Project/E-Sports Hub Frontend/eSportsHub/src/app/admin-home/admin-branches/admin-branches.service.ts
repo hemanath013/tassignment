@@ -15,6 +15,10 @@ export class AdminBranchesService {
 
   }
 
+  updateData(branches: branches[]): Observable<any> {
+    return this.http.put(`${environment.updateBranchUrl}/${branches[0].branch_id}`, branches);
+  }
+
 }
 
-export interface branches{_id:string,branch_id:string,name:string,location:string,manager:string,phone:string,email:string}
+export interface branches{branch_id:string,name:string,location:string,manager:string,phone:string,email:string,editing?: boolean;}

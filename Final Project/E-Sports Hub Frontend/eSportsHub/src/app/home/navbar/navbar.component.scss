@@ -1,54 +1,66 @@
-
-  /* Navbar Styles */
-  .navbar {
-    background-color: #dddadaa8;
-    padding: 10px;
-    
-  }
-  
-  .navbar-nav {
-    display: flex;
-    // justify-content: space-around;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .nav-link {
-    text-decoration: none;
-    color: #0f0f0f;
-  }
-  
-  /* Search Form Styles */
-  .input-group {
-    display: flex;
-    justify-content: center; /* Center the content horizontally */
-  }
-  
-
-  .serchy{
-    height: 25px;
-    width: 30px;
-    // border-radius: 30px;
-    margin-left: 40%;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-  }
-  .carty{
-   margin-left: 39%;
-  }
-.pro{
-  margin-left: 20px;
+/* Navbar Styles */
+.navbar {
+  background-color: #dddadaa8;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between; /* Adjust spacing between elements */
+  align-items: center; /* Center vertically */
+  // width: 100%;
 }
 
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .row-top,
-    .row-serch {
-      flex-direction: column;
-      align-items: center;
-    }
-  
+.navbar-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center; /* Center vertically */
+}
+
+.nav-item {
+  margin-right: 10px; /* Adjust spacing between items */
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #0f0f0f;
+}
+
+.serchy input {
+  height: 25px;
+  width: 150px; /* Adjust the width as needed */
+  border-radius: 15px; /* Add some roundness to the input */
+  padding: 5px 10px;
+  margin-left: 20%;/* Center the search bar horizontally */
+}
+
+.carty {
+  margin-left: 280%; /* Move cart to right corner */
+}
+
+.carty img {
+  height: 25px; /* Adjust the height of the cart icon */
+  width: auto; /* Maintain aspect ratio */
+}
+
+//  img {
+//   height: 20px; /* Adjust the height of the cart icon */
+//   width: auto; 
+//   margin-left: 146%;
+//   /* Maintain aspect ratio */
+// }
+
+.pro {
+  margin-left: 10px; /* Adjust spacing */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar-nav {
+    flex-direction: column; /* Align items vertically on smaller screens */
+    text-align: center; /* Center text */
   }
-  
+
+  .nav-item {
+    margin: 5px 0; /* Add spacing between items */
+  }
+}

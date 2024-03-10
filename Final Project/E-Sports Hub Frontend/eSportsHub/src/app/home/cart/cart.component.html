@@ -1,25 +1,31 @@
+<app-header></app-header>
+
 <div *ngIf="myCart !== []">
   <div class="cart-container">
-    <h2>Shopping Cart</h2>
-    <div class="cart-items">
+    <h2 mat-dialog-title>Shopping Cart</h2>
+    <mat-dialog-content class="cart-items">
       <div *ngFor="let item of myCart" class="cart-item">
         <span>{{ item.name }}</span>
         <span>{{ item.price | currency }}</span>
-        <button (click)="decreaseQuantity(item)">-</button>
-        <span>{{ item.quantity }}</span>
-        <button (click)="increaseQuantity(item)">+</button>
-        <button (click)="removeItem(item)">Remove</button>
+        <div class="quantity-buttons">
+          <button (click)="decreaseQuantity(item)">-</button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="increaseQuantity(item)">+</button>
+          <button (click)="removeItem(item)">Remove</button>
+        </div>
       </div>
-    </div>
+    </mat-dialog-content>
 
-<div *ngIf="myCart !== []">
-    <div class="cart-summary">
-      <h3>Total: {{ getTotal() | currency }}</h3>
-      <a href="javascript:void(0)"routerLink="checkout"><button  >Checkout</button></a>
-    </div>
-  </div>
+    <mat-dialog-actions align="end">
+      <div class="cart-summary">
+        <h3>Total: {{ getTotal() | currency }}</h3>
+        <a href="javascript:void(0)" routerLink="/cart/checkout"><button mat-dialog-close>Checkout</button></a>
+        <button mat-button mat-dialog-close>Cancel</button>
+      </div>
+    </mat-dialog-actions>
   </div>
 </div>
-<div *ngIf="myCart === []">
-<h1>Your Cart is Empty</h1>
+
+<div *ngIf="myCart.length === 0">
+  <h1>Your Cart is Empty</h1>
 </div>

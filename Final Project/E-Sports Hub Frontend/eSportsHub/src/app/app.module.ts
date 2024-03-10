@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {CdkStepperModule, STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { LoginComponent } from './login/login.component';
@@ -102,6 +102,7 @@ import { ManagerProductsComponent } from './manager-home/manager-products/manage
     MatTableModule,
     MatToolbarModule,
     MatSelectModule,
+    FormsModule
   ],
 
   schemas:[CUSTOM_ELEMENTS_SCHEMA],

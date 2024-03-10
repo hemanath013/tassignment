@@ -1,58 +1,103 @@
+<!-- admin-users.component.html -->\
+
 <app-admin-header></app-admin-header>
 <app-admin-navbar></app-admin-navbar>
-
 <div class="right">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-    <!-- Static column definitions -->
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    <!-- _id Column -->
+    <!-- <ng-container matColumnDef="_id">
+      <th mat-header-cell *matHeaderCellDef>_id</th>
+      <td mat-cell *matCellDef="let user">
+        <span *ngIf="!user.editing">{{ user._id }}</span>
+        <input *ngIf="user.editing" type="text" [(ngModel)]="user._id" (keyup.enter)="toggleEdit(user)">
+      </td>
+    </ng-container> -->
+  
+    <!-- user_id Column -->
     <ng-container matColumnDef="product_id">
-      <th mat-header-cell *matHeaderCellDef>Product ID</th>
-      <td mat-cell *matCellDef="let m">{{ m.product_id }}</td>
+      <th mat-header-cell *matHeaderCellDef>product_id</th>
+      <td mat-cell *matCellDef="let products">
+        <span *ngIf="!products.editing">{{ products.product_id }}</span>
+        <input *ngIf="products.editing" type="text" [(ngModel)]="products.product_id" (keyup.enter)="toggleEdit(products)">
+      </td>
     </ng-container>
+  
+    <!-- username Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>name</th>
-      <td mat-cell *matCellDef="let m"> {{m.name}} </td>
+      <td mat-cell *matCellDef="let products">
+        <span *ngIf="!products.editing">{{ products.name }}</span>
+        <input *ngIf="products.editing" type="text" [(ngModel)]="products.name" (keyup.enter)="toggleEdit(products)">
+      </td>
     </ng-container>
+  
+    <!-- email Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>description</th>
-      <td mat-cell *matCellDef="let m"> {{m.description}} </td>
+      <td mat-cell *matCellDef="let products">
+        <span *ngIf="!products.editing">{{ products.description }}</span>
+        <input *ngIf="products.editing" type="text" [(ngModel)]="products.description" (keyup.enter)="toggleEdit(products)">
+      </td>
     </ng-container>
+  
+    <!-- address Column -->
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef>price</th>
-      <td mat-cell *matCellDef="let m"> {{m.price}} </td>
+      <td mat-cell *matCellDef="let products">
+        <span *ngIf="!products.editing">{{ products.price }}</span>
+        <input *ngIf="products.editing" type="text" [(ngModel)]="products.price" (keyup.enter)="toggleEdit(products)">
+      </td>
     </ng-container>
+  
+    <!-- phone Column -->
     <ng-container matColumnDef="category">
       <th mat-header-cell *matHeaderCellDef>category</th>
-      <td mat-cell *matCellDef="let m"> {{m.category}} </td>
+      <td mat-cell *matCellDef="let products">
+        <span *ngIf="!products.editing">{{ products.category }}</span>
+        <input *ngIf="products.editing" type="text" [(ngModel)]="products.category" (keyup.enter)="toggleEdit(products)">
+      </td>
     </ng-container>
+  
+    <!-- role Column -->
     <ng-container matColumnDef="brand">
       <th mat-header-cell *matHeaderCellDef>brand</th>
-      <td mat-cell *matCellDef="let m"> {{m.brand}} </td>
+      <td mat-cell *matCellDef="let products">
+        <span *ngIf="!products.editing">{{ products.brand }}</span>
+        <input *ngIf="products.editing" type="text" [(ngModel)]="products.brand" (keyup.enter)="toggleEdit(products)">
+      </td>
     </ng-container>
+
     <ng-container matColumnDef="totalStock">
       <th mat-header-cell *matHeaderCellDef>totalStock</th>
-      <td mat-cell *matCellDef="let m"> {{m.totalStock}} </td>
+      <td mat-cell *matCellDef="let products">
+        <span *ngIf="!products.editing">{{ products.totalStock }}</span>
+        <input *ngIf="products.editing" type="text" [(ngModel)]="products.totalStock" (keyup.enter)="toggleEdit(products)">
+      </td>
     </ng-container>
-      <!-- Other columns definitions... -->
+
+    
+    <ng-container matColumnDef="branchDetails">
+      <th mat-header-cell *matHeaderCellDef>branchDetails</th>
+      <td mat-cell *matCellDef="let products">
+        <span *ngIf="!products.editing">{{ getBranchDetailsString(products.branchDetails) }}</span>
+        <input *ngIf="products.editing" type="text" [(ngModel)]="details.branchDetails" (keyup.enter)="toggleEdit(products)">
+      </td>
+    </ng-container>
   
-      <!-- Dynamic column for branchDetails dropdown -->
-      <!-- <ng-container matColumnDef="branchDetails">
-        <th mat-header-cell *matHeaderCellDef>Branch Details</th>
-        <td mat-cell *matCellDef="let m">
-          <mat-form-field>
-            <mat-select [(ngModel)]="selectedBranchId" (selectionChange)="onBranchSelectionChange(m, $event.value)">
-              <mat-option *ngFor="let branch of m.branchDetails" [value]="branch.branchId">
-                {{ branch.branchId }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-      </ng-container> -->
-      <ng-container matColumnDef="branchDetails">
-        <th mat-header-cell *matHeaderCellDef>branchDetails</th>
-        <td mat-cell *matCellDef="let m">{{ getBranchDetailsString(m.branchDetails) }}</td>
-      </ng-container>
-    <!-- Header and row definitions -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+    <!-- Edit Action Column -->
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let products">
+        <button mat-icon-button (click)="toggleEdit(products)">
+          <mat-icon>{{ products.editing ? 'save' : 'edit' }}</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+  <!-- Header and Row Definitions -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</mat-table>
+
+<button mat-button color="primary" (click)="updateData()">Update</button>
 </div>

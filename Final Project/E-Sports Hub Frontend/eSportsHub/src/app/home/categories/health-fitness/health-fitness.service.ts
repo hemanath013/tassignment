@@ -11,7 +11,7 @@ export class HealthFitnessService {
   constructor(private http:HttpClient) { }
  
   getData():Observable<products[]>{
-    return this.http.get<products[]>(`${environment.productGetUrlByCategories}cycle`);
+    return this.http.get<products[]>(`${environment.productGetUrlByCategories}gym`);
 
   }
 

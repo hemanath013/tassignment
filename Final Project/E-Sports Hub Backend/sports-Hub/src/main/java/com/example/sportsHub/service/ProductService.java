@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.sportsHub.model.Product;
+import com.example.sportsHub.model.ProductDTO;
 
 public interface ProductService {
 
-    Product createProduct(Product product);
+    Product createProduct(ProductDTO product);
 
     List<Product> getAllProducts();
 
@@ -29,6 +30,6 @@ public interface ProductService {
 
     List<Product> getProductsByBrand(String brand);
 
-    int getCountOfGetProductsByName();
+    int getCountOfGetProductsByName(String name);
 
 }

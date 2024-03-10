@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {MatDialog} from '@angular/material/dialog';
 import { CartComponent } from '../cart/cart.component';
+import { LoginService } from 'src/app/service/login.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { CartComponent } from '../cart/cart.component';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public dialog: MatDialog){
+  constructor(public dialog: MatDialog,public service:LoginService){
     
   }
 
@@ -28,13 +29,17 @@ export class HeaderComponent implements OnInit {
   }
 
 
-
+isThere = this.service.isAuthenticated();
 
   ngOnInit(): void {
       
+    console.log(this.isThere);
+    
   }
   Onclick(){
-    sessionStorage.removeItem("token")
+    // sessionStorage.removeItem("token")
+    // sessionStorage.removeItem("sm")
+    localStorage.clear();
   }
 
 }

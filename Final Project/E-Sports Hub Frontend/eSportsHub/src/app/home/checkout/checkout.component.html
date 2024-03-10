@@ -1,3 +1,11 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+
+
+
+<div *ngIf="orderPlaced === false" class="shadow bg-white p-3">
+
+
 <div class="py-3 py-md-4 checkout">
     <div class="container">
         <h4>Checkout</h4>
@@ -56,12 +64,12 @@
                                         <div *ngIf="selectedPaymentMode === 'cashOnDelivery'">
                                             <h6>Cash on Delivery Mode</h6>
                                             <hr/>
-                                            <button type="submit" class="btn btn-primary" >Place Order (Cash on Delivery)</button>
+                                            <button type="submit" class="btn btn-primary button-common" >Place Order (Cash on Delivery)</button>
                                         </div>
                                         <div *ngIf="selectedPaymentMode === 'onlinePayment'">
                                             <h6>Online Payment Mode</h6>
                                             <hr/>
-                                            <button type="submit" class="btn btn-warning" (click)="pay()" >Pay Now (Online Payment)</button>
+                                            <button type="submit" class="btn btn-warning button-common"  (click)="pay()">Pay Now (Online Payment)</button>
                                         </div>
                                     </div>
                                 </div>
@@ -74,3 +82,10 @@
         </div>
     </div>
 </div>
+
+</div>
+
+
+<div *ngIf="orderPlaced === true" class="thank-you-container"> <!-- Display thank you message if submitted -->
+    <h2 class="thank-you-message">Thank You!</h2>
+  </div>

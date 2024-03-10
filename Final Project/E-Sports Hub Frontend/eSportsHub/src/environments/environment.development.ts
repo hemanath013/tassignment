@@ -8,6 +8,11 @@ export const environment = {
     grtAllBranchesUrl:"http://localhost:8080/branches",
     PostOrdersUrl:"http://localhost:8080/api/orders",
     getOrdersUrl:"http://localhost:8080/api/orders",
+    updateUserUrl:"http://localhost:8080/api/users",
+    updateOrderUrl:"http://localhost:8080/api/orders",
+    updateBranchUrl:"http://localhost:8080/branch",
+    updateProductUrl:"http://localhost:8080/api/products",
+  
 
 
 };

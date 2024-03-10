@@ -15,7 +15,7 @@ export class AdminProductsComponent {
 
 
   ELEMENT_DATA:any;
-  displayedColumns: string[] = ['product_id', 'name', 'description', 'price', 'category', 'brand', 'totalStock', 'branchDetails'];
+  displayedColumns: string[] = ['product_id', 'name', 'description', 'price', 'category', 'brand', 'totalStock', 'branchDetails','edit'];
   dataSource: MatTableDataSource<products>;
   selectedBranchId: string | null = null; 
   constructor(private service:AdminProductsService,public dialog: MatDialog){
@@ -31,11 +31,14 @@ export class AdminProductsComponent {
        });
   }
 
+  details:any;
+
   getBranchDetailsString(branchDetails: BranchDetails[]): string {
     if (!branchDetails) {
       return ''; // Return an empty string if branchDetails is null or undefined
     }
-    return branchDetails.map(branch => `${branch.branchId}: ${branch.location} (${branch.stockQuantity})`).join(', ');
+    this.details =  branchDetails.map(branch => `${branch.branchId}: ${branch.location} (${branch.stockQuantity})`).join(', ');
+    return this.details;
   }
 
   onBranchSelectionChange(product: products, event: MatSelectChange) {
@@ -43,8 +46,34 @@ export class AdminProductsComponent {
     // Implement your logic here based on the selected branch ID
     console.log(`Selected branch ID for product ${product.product_id}: ${selectedBranchId}`);
   }
+
   
+  toggleEdit(products: products): void {
+    products.editing = !products.editing;
+    if (!products.editing) {
+      // Logic to save changes locally
+    }
+  }
+
+  updateData(): void {
+    // Assuming you have a method in your service to update data
+    this.service.updateData(this.ELEMENT_DATA).subscribe(
+      () => {
+        console.log("Data updated successfully");
+        // Optionally, refresh data after successful update
+        this.get();
+      },
+      (error) => {
+        console.error("Error updating data:", error);
+      }
+    );
+  }
+
+
 }
+
+
+
 
 
 

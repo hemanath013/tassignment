@@ -12,7 +12,6 @@ export class RegisterService {
   register(username:any,email:any,password:any,address:any,phone:any) : Observable<RegisterResponse>{
 
     const body = {username,email,password,address,phone}
-    console.log("ooooo ",body);
     
     return this.http.post<RegisterResponse>(environment.registerUrl,body)
 

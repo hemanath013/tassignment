@@ -1,69 +1,109 @@
-<app-admin-header></app-admin-header>
-<app-admin-navbar></app-admin-navbar>
 
+<app-manager-header></app-manager-header>
+<app-manager-navbar></app-manager-navbar>
 <div class="right">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-    <!-- Static column definitions -->
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    <!-- _id Column -->
+    <!-- <ng-container matColumnDef="_id">
+      <th mat-header-cell *matHeaderCellDef>_id</th>
+      <td mat-cell *matCellDef="let user">
+        <span *ngIf="!user.editing">{{ user._id }}</span>
+        <input *ngIf="user.editing" type="text" [(ngModel)]="user._id" (keyup.enter)="toggleEdit(user)">
+      </td>
+    </ng-container> -->
+  
+    <!-- user_id Column -->
     <ng-container matColumnDef="userId">
-      <th mat-header-cell *matHeaderCellDef>userId ID</th>
-      <td mat-cell *matCellDef="let m">{{ m.userId }}</td>
+      <th mat-header-cell *matHeaderCellDef>userId</th>
+      <td mat-cell *matCellDef="let order">
+        <span *ngIf="!order.editing">{{ order.userId }}</span>
+        <input *ngIf="order.editing" type="text" [(ngModel)]="order.userId" (keyup.enter)="toggleEdit(order)">
+      </td>
     </ng-container>
-    <ng-container matColumnDef="branchId">
-      <th mat-header-cell *matHeaderCellDef>branchId</th>
-      <td mat-cell *matCellDef="let m"> {{m.branchId}} </td>
-    </ng-container>
+  
+    <!-- username Column -->
     <ng-container matColumnDef="totalPrice">
       <th mat-header-cell *matHeaderCellDef>totalPrice</th>
-      <td mat-cell *matCellDef="let m"> {{m.totalPrice}} </td>
+      <td mat-cell *matCellDef="let order">
+        <span *ngIf="!order.editing">{{ order.totalPrice }}</span>
+        <input *ngIf="order.editing" type="text" [(ngModel)]="order.totalPrice" (keyup.enter)="toggleEdit(order)">
+      </td>
     </ng-container>
+  
+    <!-- email Column -->
     <ng-container matColumnDef="fullName">
       <th mat-header-cell *matHeaderCellDef>fullName</th>
-      <td mat-cell *matCellDef="let m"> {{m.fullName}} </td>
+      <td mat-cell *matCellDef="let order">
+        <span *ngIf="!order.editing">{{ order.fullName }}</span>
+        <input *ngIf="order.editing" type="text" [(ngModel)]="order.fullName" (keyup.enter)="toggleEdit(order)">
+      </td>
     </ng-container>
+  
+    <!-- address Column -->
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef>phone</th>
-      <td mat-cell *matCellDef="let m"> {{m.phone}} </td>
+      <td mat-cell *matCellDef="let order">
+        <span *ngIf="!order.editing">{{ order.phone }}</span>
+        <input *ngIf="order.editing" type="text" [(ngModel)]="order.phone" (keyup.enter)="toggleEdit(order)">
+      </td>
     </ng-container>
+  
+    <!-- phone Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef>email</th>
-      <td mat-cell *matCellDef="let m"> {{m.email}} </td>
+      <td mat-cell *matCellDef="let order">
+        <span *ngIf="!order.editing">{{ order.email }}</span>
+        <input *ngIf="order.editing" type="text" [(ngModel)]="order.email" (keyup.enter)="toggleEdit(order)">
+      </td>
     </ng-container>
+  
+    <!-- role Column -->
     <ng-container matColumnDef="fullAddress">
       <th mat-header-cell *matHeaderCellDef>fullAddress</th>
-      <td mat-cell *matCellDef="let m"> {{m.fullAddress}} </td>
+      <td mat-cell *matCellDef="let order">
+        <span *ngIf="!order.editing">{{ order.fullAddress }}</span>
+        <input *ngIf="order.editing" type="text" [(ngModel)]="order.fullAddress" (keyup.enter)="toggleEdit(order)">
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="paymentMethod">
-        <th mat-header-cell *matHeaderCellDef>paymentMethod</th>
-        <td mat-cell *matCellDef="let m"> {{m.paymentMethod}} </td>
-      </ng-container>
+      <th mat-header-cell *matHeaderCellDef>paymentMethod</th>
+      <td mat-cell *matCellDef="let order">
+        <span *ngIf="!order.editing">{{ order.paymentMethod }}</span>
+        <input *ngIf="order.editing" type="text" [(ngModel)]="order.paymentMethod" (keyup.enter)="toggleEdit(order)">
+      </td>
+    </ng-container>
 
-      <ng-container matColumnDef="orderDate">
-        <th mat-header-cell *matHeaderCellDef>orderDate</th>
-        <td mat-cell *matCellDef="let m"> {{m.orderDate}} </td>
-      </ng-container>
-      <!-- Other columns definitions... -->
+    <ng-container matColumnDef="orderDate">
+      <th mat-header-cell *matHeaderCellDef>orderDate</th>
+      <td mat-cell *matCellDef="let order">
+        <span *ngIf="!order.editing">{{ order.orderDate }}</span>
+        <input *ngIf="order.editing" type="text" [(ngModel)]="order.orderDate" (keyup.enter)="toggleEdit(order)">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="products">
+      <th mat-header-cell *matHeaderCellDef>products</th>
+      <td mat-cell *matCellDef="let order">
+        <span *ngIf="!order.editing">{{ getBranchDetailsString(order.products) }}</span>
+        <input *ngIf="order.editing" type="text" [(ngModel)]="details.products  " (keyup.enter)="toggleEdit(order)">
+      </td>
+    </ng-container>
   
-      <!-- Dynamic column for branchDetails dropdown -->
-      <!-- <ng-container matColumnDef="branchDetails">
-        <th mat-header-cell *matHeaderCellDef>Branch Details</th>
-        <td mat-cell *matCellDef="let m">
-          <mat-form-field>
-            <mat-select [(ngModel)]="selectedBranchId" (selectionChange)="onBranchSelectionChange(m, $event.value)">
-              <mat-option *ngFor="let branch of m.branchDetails" [value]="branch.branchId">
-                {{ branch.branchId }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-      </ng-container> -->
-      <ng-container matColumnDef="products">
-        <th mat-header-cell *matHeaderCellDef>products</th>
-        <td mat-cell *matCellDef="let m">{{ getBranchDetailsString(m.products) }}</td>
-      </ng-container>
-    <!-- Header and row definitions -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</div>
+    <!-- Edit Action Column -->
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let order">
+        <button mat-icon-button (click)="toggleEdit(order)">
+          <mat-icon>{{ order.editing ? 'save' : 'edit' }}</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
+  <!-- Header and Row Definitions -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</mat-table>
+
+<button mat-button color="primary" (click)="updateData()">Update</button>
+</div>

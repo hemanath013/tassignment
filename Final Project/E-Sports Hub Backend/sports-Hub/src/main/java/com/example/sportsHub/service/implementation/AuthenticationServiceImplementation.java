@@ -64,9 +64,13 @@ EmailDetails emailDetails = EmailDetails.builder().recipient(user.getEmail())
  
 		service2.sendSimpleMail(emailDetails);
 
-                return new ResponseEntity<>(AuthenticationResponse.builder()
-                                .token(jwtToken)
-                                .build(), HttpStatus.OK);
+                AuthenticationResponse response = AuthenticationResponse.builder()
+                .token(jwtToken)
+                .user_id(savedUser.getUser_id()) // Set the user ID
+                .build();
+
+        // Return the response
+        return new ResponseEntity<>(response, HttpStatus.OK);
         }
 
         public ResponseEntity<AuthenticationResponse> authenticate(AuthenticationRequest request) {
@@ -79,9 +83,14 @@ EmailDetails emailDetails = EmailDetails.builder().recipient(user.getEmail())
                 User user = userRepository.findByUsername(request.getUsername())
                                 .orElseThrow(() -> new UsernameNotFoundException("Username or Password invalid"));
                 String jwtToken = jwtService.generateToken(user);
-                return new ResponseEntity<>(AuthenticationResponse.builder()
-                                .token(jwtToken)
-                                .build(), HttpStatus.OK);
+                AuthenticationResponse response = AuthenticationResponse.builder()
+                .token(jwtToken)
+                .user_id(user.getUser_id()) // Set the user ID
+                .role(user.getRole())
+                .build();
+
+        // Return the response
+        return new ResponseEntity<>(response, HttpStatus.OK);
         }
 
 }

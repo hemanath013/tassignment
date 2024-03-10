@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { FormsModule } from '@angular/forms';
 
@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class CheckoutService {
   private myCartKey = 'MyCart';
+  private myUserId = 'userId';
 
   constructor(private http:HttpClient) { }
 
@@ -21,10 +22,14 @@ export class CheckoutService {
     return JSON.parse(localStorage.getItem(this.myCartKey) || '[]');
   }
 
-  // post():Observable<order>{
-    // return this.http.post<order>("")
+  getUserId(): string{
+    return localStorage.getItem(this.myUserId)
+    
+  }
+
+  post(formData:any):Observable<any>{
+    return this.http.post<any>(environment.PostOrdersUrl,formData)
   }
 
   
-// }
-interface order{}
+}

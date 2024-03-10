@@ -1,38 +1,36 @@
-<section class="login-block">
-    <div class="container">
-        <div class="row ">
-            <div class="col login-sec">
-                <h2 class="text-center">Login Now</h2>
-                <form class="login-form" action="" [formGroup]="log"  novalidate (ngSubmit)="onSubmit()" >
-                <div class="form-group">
-                    <label for="exampleInputEmail1" class="text-uppercase">UserName</label>
-                    <input type="text"  class="form-control" name="text"  id="" placeholder="UserName" formControlName="UserName" required>
-                    <span class="text-danger">
-                        UserName is required.
-                    </span>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1" class="text-uppercase">Password</label>
-                    <input  class="form-control" type="password"  name="password" placeholder="password" id="" required  formControlName="password">
-              
-                  
-                </div>
-                <div class="form-group">
-                    <span class="text-danger" *ngIf="this.errorMessage" >
-                    <p [innerText]="this.errorMessage"></p>
-                    </span>
-                    <input  type="submit" class="btn btn-login float-right"   value="Login" (click)="submit=true">
-                </div>
-                <div class="clearfix"></div>
-                <div class="form-group">
-                Create new account ? Please <a  href="javascript:void(0);" routerLink="/register">Register</a>
-                </div>
-                </form>
-            </div>
+<div class="background-image">
+    <section class="login-block">
+      <div class="container">
+        <div class="row">
+          <div class="col login-sec">
+            <h2 class="text-center">Login Now</h2>
+            <form class="login-form" action="" [formGroup]="log" novalidate (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <input type="text" class="form-control" name="UserName" placeholder="UserName" formControlName="UserName" required>
+                <span class="error-message" *ngIf="log.get('UserName').errors?.['required'] && log.get('UserName').touched">
+                  UserName is required.
+                </span>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password" formControlName="password" required>
+                <span class="error-message" *ngIf="log.get('password').errors?.['required'] && log.get('password').touched">
+                  Password is required.
+                </span>
+              </div>
+              <div class="form-group">
+                <span class="error-message" *ngIf="errorMessage">
+                  {{ errorMessage }}
+                </span>
+                <button type="submit" class="btn btn-login float-right">Login</button>
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group">
+                Create new account? Please <a href="javascript:void(0);" routerLink="/register">Register</a>
+              </div>
+            </form>
+          </div>
         </div>
-    </div>
-  </section>
-  
-  
-  
+      </div>
+    </section>
+  </div>
   

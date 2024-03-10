@@ -4,6 +4,7 @@ import { CartService } from '../cart/cart.service';
 import { Form } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import payments from 'razorpay/dist/types/payments';
+import { user } from '../../admin-home/admin-users/admin-users.service';
 
 declare const Razorpay: any;
 
@@ -14,6 +15,7 @@ declare const Razorpay: any;
 })
 export class CheckoutComponent implements OnInit {
   myCart: any[];
+  user_id:string;
   constructor(
     private service: CheckoutService,
     private se: CartService,
@@ -21,6 +23,9 @@ export class CheckoutComponent implements OnInit {
   ) {
     this.myCart = this.service.getCartItems();
     console.log(this.myCart);
+    this.user_id = this.service.getUserId();
+    console.log(this.user_id);
+    
   }
 
 
@@ -102,28 +107,54 @@ export class CheckoutComponent implements OnInit {
     this.selectedPaymentMode = mode;
     this.checkoutForm.value.PaymentMethod = mode;
     //console.log(this.checkoutForm.value.PaymentMethod);
+    if(mode === 'cashOnDelivery'){
+       setTimeout(() => {
+          this.orderPlaced = true;
+       }, 4000);
+    }else{
+      setTimeout(() => {
+        this.orderPlaced = true;
+     },15*1000);
+      
+    }
+    
     
   }
 
+  orderPlaced: boolean = false;
   onSubmit() {
     //this.checkoutForm.value.PaymentMethod
     // Handle form submission
     localStorage.removeItem('MyCart');
-    console.log(this.checkoutForm.value);
     this.checkoutForm.value.totalPrice = this.Amount;
-  
-    console.log(  this.myCart[0]);
-     
-
-
-
-    // this.service.post().subscribe(() => {});
+    const product:any[]=[];
+    this.myCart.forEach((val)=>{
+      product.push({'product_id':val.product_id,'name':val.name,'quantity':val.quantity})
+      
+    })
+    this.formData.userId = this.user_id,
+    this.formData.products = product,
+    this.formData.totalPrice = this.checkoutForm.value.totalPrice,
+    this.formData.fullName = this.checkoutForm.value.fullname,
+    this.formData.phone = this.checkoutForm.value.phone
+    this.formData.email = this.checkoutForm.value.email
+    this.formData.pinCode = this.checkoutForm.value.pincode
+    this.formData.fullAddress = this.checkoutForm.value.address
+    this.formData.paymentMethod = this.checkoutForm.value.PaymentMethod
+    console.log(this.formData);
+    this.service.post(this.formData).subscribe({
+      next: (response) => {
+        console.log('Order placed successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error placing order:', error);
+      }
+    });
   }
 
   formData = {
     userId: '',
-    branchId: '',
-    products: [{ productId: '', quantity: '' }],
+    products: [],
     totalPrice: '',
     fullName: '',
     phone: '',
@@ -135,3 +166,4 @@ export class CheckoutComponent implements OnInit {
 
 
 }
+

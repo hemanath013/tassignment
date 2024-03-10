@@ -20,13 +20,13 @@ import { Token } from '@angular/compiler';
 })
 export class RegisterComponent {
   firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+    firstCtrl: ['', [Validators.required, Validators.minLength(3)]],
   });
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.email],
   });
   thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required],
+    thirdCtrl: ['', [Validators.required, Validators.minLength(6)]],
   });
   fourthFormGroup = this._formBuilder.group({
     fourthCtrl: ['', Validators.required],
@@ -48,23 +48,41 @@ export class RegisterComponent {
   this.formData.address = this.fourthFormGroup.controls.fourthCtrl.value;
   this.formData.phone = this.fifthFormGroup.controls.fifthCtrl.value;
   
-  console.log(this.formData);
+ 
   
 
     this.registerService.register(this.formData.username,this.formData.email,this.formData.password,this.formData.address,this.formData.phone).subscribe(
       (data) => {
-        console.log(data.token);
-        localStorage.setItem("token",data.token)
         
+        localStorage.setItem("token",data.token);
+
+        this.route.navigate(['/login']);
 
     },
     (error) => {
+      console.error('Registration error:', error);
 
     }
     
     
     );
    }
+
+   currentStepIndex = 0;
+   images: string[] = [
+     '/assets/img/ba.jpg',
+     '/assets/img/29.jpg',
+     '/assets/img/25.jpg',
+     '/assets/img/31.jpg',
+     '/assets/img/32.jpg',
+    
+   ];
+
+   onNext() {
+    if (this.currentStepIndex < this.images.length - 1) {
+      this.currentStepIndex++;
+    }
+  }
    
     
   }

@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 import { AccessoriesService } from './accessories.service';
+import { Router } from '@angular/router';
+import { JsonPipe } from '@angular/common';
+import { CartService } from 'src/app/home/cart/cart.service';
+import {MatDialog} from '@angular/material/dialog';
+import { CartComponent } from '../../cart/cart.component';
+
 
 @Component({
   selector: 'app-accessories',
@@ -8,7 +14,7 @@ import { AccessoriesService } from './accessories.service';
 })
 export class AccessoriesComponent {
 
-  constructor(private service:AccessoriesService) {
+  constructor(private service:AccessoriesService,private router:Router,private cartService:CartService,public dialog: MatDialog) {
     this.get()
   }
 
@@ -22,4 +28,24 @@ export class AccessoriesComponent {
      });
   }
 
+  navigate(id:any){
+    this.router.navigate(['productDetails',id]);
 }
+
+addToCart(item) {
+   this.cartService.addToCart(item);
+ console.log('Item added to cart:', item);
+}
+
+
+openDialog() {
+ const dialogRef = this.dialog.open(CartComponent);
+
+ dialogRef.afterClosed().subscribe(result => {
+   console.log(`Dialog result: ${result}`);
+ });
+}
+}
+
+
+
