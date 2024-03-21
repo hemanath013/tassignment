@@ -2,6 +2,7 @@ package com.example.sportsHub.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,7 +28,13 @@ public class SecurityConfiguration {
                                 .authorizeHttpRequests(requests -> requests
                                                 .requestMatchers("/api/auth/**")
                                                 .permitAll()
+                                                .requestMatchers("/api/**")
+                                                .permitAll()
                                                 .requestMatchers("static/**")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.GET,"/api/products")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.GET,"/api/products/by-category/{category}")
                                                 .permitAll()
                                                 .anyRequest()
                                                 .authenticated())

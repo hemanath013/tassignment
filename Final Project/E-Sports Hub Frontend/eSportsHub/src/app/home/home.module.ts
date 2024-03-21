@@ -8,6 +8,7 @@ import { HealthFitnessComponent } from './categories/health-fitness/health-fitne
 import { AccessoriesComponent } from './categories/accessories/accessories.component';
 import { CyclingComponent } from './categories/cycling/cycling.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { AddComponent } from './admin-home/admin-products/add/add.component';
 
 
 
@@ -19,6 +20,7 @@ import { BrowserModule } from '@angular/platform-browser';
     HealthFitnessComponent,
     AccessoriesComponent,
     CyclingComponent,
+    AddComponent,
     
   ],
   imports: [

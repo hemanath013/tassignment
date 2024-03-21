@@ -32,13 +32,9 @@ export class HeaderComponent implements OnInit {
 isThere = this.service.isAuthenticated();
 
   ngOnInit(): void {
-      
-    console.log(this.isThere);
     
   }
   Onclick(){
-    // sessionStorage.removeItem("token")
-    // sessionStorage.removeItem("sm")
     localStorage.clear();
   }
 

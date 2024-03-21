@@ -1,21 +1,75 @@
 package com.example.sportsHub.Exception;
 
+import org.apache.catalina.connector.Response;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-// import org.springframework.http.HttpStatus;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.ControllerAdvice;
-// import org.springframework.web.bind.annotation.ExceptionHandler;
+@RestControllerAdvice
+public class MyException {
 
-// @ControllerAdvice
-// public class MyException {
+        // @ExceptionHandler(value = { Exception.class })
+        // public ResponseEntity<?> handleException(Exception e) {
+        //     return ResponseEntity.status(Response.SC_INTERNAL_SERVER_ERROR).body(e.getMessage());
+        // }
 
-//   @ExceptionHandler(CustomException.class)
-//   public ResponseEntity<String> exceptionHandler(CustomException e) {
-//     return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
-//   }
+        // @ExceptionHandler(value = { RuntimeException.class })
+        // public ResponseEntity<?> handleRuntimeException(RuntimeException e) {
+        //     return ResponseEntity.status(Response.SC_INTERNAL_SERVER_ERROR).body(e.getMessage());
+        // }
 
-//   @ExceptionHandler(Exception.class)
-//   public ResponseEntity<String> handleException(Exception e) {
-//     return new ResponseEntity<>("Error", HttpStatus.NOT_FOUND);
-//   }
-// }
+        @ExceptionHandler(value = {RuntimeException.class})
+        public ResponseEntity<?> runTimeException(RuntimeException e)
+        {
+            return ResponseEntity.status(Response.SC_INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        
+        @ExceptionHandler(value = { IllegalArgumentException.class })
+        public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException e) {
+            return ResponseEntity.status(Response.SC_BAD_REQUEST).body(e.getMessage());
+        }
+
+        @ExceptionHandler(value = { IllegalStateException.class })  
+        public ResponseEntity<?> handleIllegalStateException(IllegalStateException e) {
+            return ResponseEntity.status(Response.SC_BAD_REQUEST).body(e.getMessage());
+        }
+
+        @ExceptionHandler(value = { SecurityException.class })
+        public ResponseEntity<?> handleSecurityException(SecurityException e) {
+            return ResponseEntity.status(Response.SC_UNAUTHORIZED).body(e.getMessage());
+        }
+        
+        @ExceptionHandler(value = {UsernameNotFoundException.class})
+        public ResponseEntity<?> handleUsernameNotFoundException(UsernameNotFoundException e)
+        {
+            return ResponseEntity.status(Response.SC_UNAUTHORIZED).body(e.getMessage());
+        }
+        @ExceptionHandler(value = {AccessDeniedException.class})
+        public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException e)
+        {
+            return ResponseEntity.status(Response.SC_FORBIDDEN).body(e.getMessage());
+        }
+        @ExceptionHandler(value = {IncorrectResultSizeDataAccessException.class})
+        public ResponseEntity<?> handlIncorrectResultSizeDataAccessException(IncorrectResultSizeDataAccessException e)
+        {
+            return ResponseEntity.status(Response.SC_BAD_REQUEST).body(e.getMessage());
+        }
+        
+        // @ExceptionHandler(value = {EmailAlreadyExist.class})
+        // public ResponseEntity<?> handlEmailAreadyExist(EmailAlreadyExist e)
+        // {
+        //     return ResponseEntity.status(Response.SC_BAD_REQUEST).body(e.getMessage());
+        // }
+        @ExceptionHandler(EmailAlreadyExistsException.class)
+            public ResponseEntity<?> handleEmailAlreadyExistsException(EmailAlreadyExistsException exception) {
+                return ResponseEntity.status(Response.SC_CONFLICT).body(exception.getMessage());
+        }
+
+        @ExceptionHandler(UserNameAlreadyExistsException.class)
+            public ResponseEntity<?> handleUserNameAlreadyExistsException(UserNameAlreadyExistsException exception) {
+                return ResponseEntity.status(Response.SC_CONFLICT).body(exception.getMessage());
+        }
+}

@@ -11,7 +11,7 @@ export class ProductDetailsService {
   constructor(private http:HttpClient) { }
 
   getData(id:string):Observable<products>{
-    return this.http.get<products>(`${environment.productGetUrl}/${id}`)
+    return this.http.get<products>(`${environment.baseUrl}/api/products/${id}`)
   }
 }
 

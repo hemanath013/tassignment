@@ -24,9 +24,6 @@ import { CategoriesComponent } from './home/categories/categories.component';
 import { CheckoutComponent } from './home/checkout/checkout.component';
 import { InterInterceptor } from './interceptor/inter.interceptor';
 import { CyclingComponent } from './home/categories/cycling/cycling.component';
-import { AccessoriesComponent } from './home/categories/accessories/accessories.component';
-import { SportsEquipmentComponent } from './home/categories/sports-equipment/sports-equipment.component';
-import { HealthFitnessComponent } from './home/categories/health-fitness/health-fitness.component';
 import { ProductDetailsComponent } from './home/product-details/product-details.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -48,6 +45,10 @@ import { ManagerHeaderComponent } from './manager-home/manager-header/manager-he
 import { ManagerNavbarComponent } from './manager-home/manager-navbar/manager-navbar.component';
 import { ManagerOfferComponent } from './manager-home/manager-offer/manager-offer.component';
 import { ManagerProductsComponent } from './manager-home/manager-products/manager-products.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { CategoryDetailsComponent } from './home/categories/category-details/category-details.component';
+import { AddComponent } from './admin-home/admin-products/add/add.component';
+
 
 
 @NgModule({
@@ -64,9 +65,6 @@ import { ManagerProductsComponent } from './manager-home/manager-products/manage
     CheckoutComponent,
     FooterComponent,
     CyclingComponent,
-    AccessoriesComponent,
-    SportsEquipmentComponent,
-    HealthFitnessComponent,
     ProductDetailsComponent,
     CartComponent,
     CheckoutComponent,
@@ -85,7 +83,9 @@ import { ManagerProductsComponent } from './manager-home/manager-products/manage
     ManagerNavbarComponent,
     ManagerProductsComponent,
     ManagerOfferComponent,
-    ManagerOrdersComponent
+    ManagerOrdersComponent,
+    CategoryDetailsComponent,
+    AddComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +102,8 @@ import { ManagerProductsComponent } from './manager-home/manager-products/manage
     MatTableModule,
     MatToolbarModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    MatPaginatorModule
   ],
 
   schemas:[CUSTOM_ELEMENTS_SCHEMA],

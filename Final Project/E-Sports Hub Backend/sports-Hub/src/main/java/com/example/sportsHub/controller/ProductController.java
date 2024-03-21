@@ -3,12 +3,18 @@ package com.example.sportsHub.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.sportsHub.AOP.ProductNameCounterAspect;
+import com.example.sportsHub.model.Branch;
 import com.example.sportsHub.model.Product;
 import com.example.sportsHub.model.ProductDTO;
+import com.example.sportsHub.model.UpdateProduct;
 import com.example.sportsHub.service.ProductService;
+
+import jakarta.mail.Multipart;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,16 +26,16 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-       @Autowired
+    @Autowired
     private ProductNameCounterAspect counterAspect;
 
     @PostMapping("/create")
-    public ResponseEntity<Product> createProduct(@ModelAttribute ProductDTO product) {
-        Product createdProduct = productService.createProduct(product);
+    public ResponseEntity<Product> createProduct(@ModelAttribute ProductDTO product, @RequestParam("file") MultipartFile imageFile) {
+        Product createdProduct = productService.createProduct(product, imageFile);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
     
-    @CrossOrigin(origins = "http://localhost:4200")
+ 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.getAllProducts();
@@ -42,15 +48,33 @@ public class ProductController {
         return product.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) {
-        Product updatedProduct = productService.updateProduct(id, product);
+    @PutMapping("/update")
+    public ResponseEntity<Product> updateProduct(@ModelAttribute UpdateProduct product) {
+        System.out.println("  product   "+product);
+        
+        
+        Product updatedProduct = productService.updateProduct(product.getId(), product);
+        
+
         if (updatedProduct != null) {
             return ResponseEntity.ok(updatedProduct);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
+      @PutMapping("/{id}")
+    public ResponseEntity<Product> update(@PathVariable String id, @RequestBody Product product) {
+        Product updatedBranch =productService.update(id, product);
+        if (updatedBranch != null) {
+            return ResponseEntity.ok(updatedBranch);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
@@ -101,6 +125,14 @@ public class ProductController {
         int count = productService.getCountOfGetProductsByName(name);
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
+
+    @GetMapping("/new")
+    public ResponseEntity<List<String>> getAllCategories() {
+        List<String> categories = productService.getAllCategories();
+        return ResponseEntity.ok(categories);
+    }
+
+
 
     
 }

@@ -4,7 +4,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminOrdersService, order,products } from 'src/app/admin-home/admin-orders/admin-orders.service';
 import { BranchDetails } from 'src/app/admin-home/admin-products/admin-products.service';
-
+import { debounceTime } from 'rxjs/operators';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import { PageEvent } from '@angular/material/paginator';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-manager-orders',
   templateUrl: './manager-orders.component.html',
@@ -12,28 +19,62 @@ import { BranchDetails } from 'src/app/admin-home/admin-products/admin-products.
 })
 export class ManagerOrdersComponent {
 
-  ELEMENT_DATA:any;
-  displayedColumns: string[] = ['userId', 'totalPrice', 'fullName', 'phone', 'email', 'fullAddress', 'paymentMethod','orderDate','products','edit'];
+  length = 0;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+
+  hidePageSize = false;
+  showPageSizeOptions = false;
+  showFirstLastButtons = true;
+  disabled = false;
+
+  pageEvent: PageEvent | undefined;
+
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+    this.get();
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
+  ELEMENT_DATA: order[] =[]
+  displayedColumns: string[] = ['userId', 'totalPrice', 'fullName', 'phone', 'email', 'fullAddress', 'paymentMethod','orderDate','products'];
   dataSource: MatTableDataSource<order>;
   selectedBranchId: string | null = null; 
   constructor(private service:AdminOrdersService,public dialog: MatDialog) {
+    this.dataSource = new MatTableDataSource<order>(this.ELEMENT_DATA);
     this.get();
   }
-  get(){
+  get(): void{
     this.service.getData().subscribe(
-      (data) => { console.log("hlo",data);
-        this.ELEMENT_DATA = data;
-        this.dataSource = this.ELEMENT_DATA
-       });
+      (data) => { 
+        // console.log(data);
+        this.length = data.length;
+        const startIndex = this.pageIndex*this.pageSize;
+        const endIndex = this.pageIndex*this.pageSize + this.pageSize;
+        this.ELEMENT_DATA = data.slice(startIndex, endIndex);
+        this.dataSource.data = this.ELEMENT_DATA;  
+     ;
+      },
+      (error) => {
+        console.error("Error fetching data:", error);
+      }
+    );
   }
-  
   details:any;
   getBranchDetailsString(products: products[]): string {
-    if (!products) {
-      return ''; 
-    }  
-    this.details = products.map(products => `${products.product_id}: ${products.quantity}`).join(', ');
-    return this.details;
+    if (!products || products.length === 0) {
+      return '';
+    }
+    
+    return products.map(product => `Product ID: ${product.productId}, Quantity: ${product.quantity}`).join(', ');
   }
 
   toggleEdit(order: order): void {
@@ -42,12 +83,25 @@ export class ManagerOrdersComponent {
     }
   }
 
+  handleInput(event: any) {
+    const searchValue = event.target.value.toLowerCase(); // Convert search value to lowercase
+    const debouncedInput = this.service.getData().pipe(debounceTime(300));
+    
+    debouncedInput.subscribe((res) => {
+      this.dataSource.data = res.filter((item) => item.fullName.toLowerCase().includes(searchValue));
+    });
+  }
+
   updateData(): void {
+    const updatedBranches: order = this.ELEMENT_DATA[0];
     // Assuming you have a method in your service to update data
-    this.service.updateData(this.ELEMENT_DATA).subscribe(
+    this.service.updateData(updatedBranches).subscribe(
       () => {
-        console.log("Data updated successfully");
-        // Optionally, refresh data after successful update
+        Swal.fire({
+          title: "Success!",
+          text: "The data has been updated successfully.",
+          icon: "success"
+        });
         this.get();
       },
       (error) => {

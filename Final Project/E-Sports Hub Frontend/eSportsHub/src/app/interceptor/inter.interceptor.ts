@@ -13,9 +13,8 @@ export class InterInterceptor implements HttpInterceptor {
 
   constructor() {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<unknown> , next: HttpHandler): Observable<HttpEvent<unknown>> {
     const jwtToken = localStorage.getItem("token");
-    console.log(jwtToken);
     
     if (jwtToken) {
       const cloned = request.clone({

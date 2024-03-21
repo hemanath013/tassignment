@@ -25,13 +25,20 @@ public class AuthenticationController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-        @RequestBody RegisterRequest request){
+        @RequestBody RegisterRequest request) {
+            // try{
             return service.register(request);
+            // }
+            // catch(Exception e){
+            //     e.printStackTrace();
+            //     return null;
+            // }
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(
         @RequestBody AuthenticationRequest request){
+            System.out.println(service.authenticate(request));
             return service.authenticate(request);
     }
 }

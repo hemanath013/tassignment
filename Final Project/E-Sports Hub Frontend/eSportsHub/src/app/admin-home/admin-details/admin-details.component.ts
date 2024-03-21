@@ -14,7 +14,7 @@ user_id:string = '';
 
 constructor(private service:AdminUsersService) {
   this.user_id = this.service.getUserId();
-  console.log(this.user_id);
+  // console.log(this.user_id);
   this.get(); 
 }
 

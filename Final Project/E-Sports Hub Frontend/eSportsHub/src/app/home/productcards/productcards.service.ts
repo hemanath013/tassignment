@@ -11,9 +11,11 @@ export class ProductcardsService {
   constructor(private http:HttpClient) { }
    
   getData():Observable<products[]>{
-    return this.http.get<products[]>(`${environment.productGetUrl}`);
+    return this.http.get<products[]>(`${environment.baseUrl}/api/products`);
   }
 
+
+ 
 }
 
 export interface products{name:string,description:string,price:number,brand:string,image:string}

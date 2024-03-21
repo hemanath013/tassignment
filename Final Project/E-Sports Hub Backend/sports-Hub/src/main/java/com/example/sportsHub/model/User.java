@@ -19,6 +19,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class User implements UserDetails{
+
+  private String id;
   private String user_id;
     private String username;
     private String email;
@@ -30,7 +32,7 @@ public class User implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_"+role));
     }
   
     @Override

@@ -1,91 +1,87 @@
 <app-header></app-header>
-<app-navbar></app-navbar>
-
 
 
 <div *ngIf="orderPlaced === false" class="shadow bg-white p-3">
-
-
-<div class="py-3 py-md-4 checkout">
+  <div class="py-3 py-md-4 checkout">
     <div class="container">
-        <h4>Checkout</h4>
-        <hr>
-
-        <div class="row">
-            <div class="col-md-12 mb-4">
-                <div class="shadow bg-white p-3">
-                    <h4 class="text-primary">
-                        Item Total Amount :
-                        <span class="float-end">{{Amount}}</span>
-                    </h4>
-                    <hr>
-                    <small>* Items will be delivered in 3 - 5 days.</small>
-                    <br/>
-                    <small>* Tax and other charges are included ?</small>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="shadow bg-white p-3">
-                    <h4 class="text-primary">
-                        Basic Information
-                    </h4>
-                    <hr>
-
-                    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label>Full Name</label>
-                                <input type="text" formControlName="fullname" class="form-control" placeholder="Enter Full Name" />
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label>Phone Number</label>
-                                <input type="number" formControlName="phone" class="form-control" placeholder="Enter Phone Number" />
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label>Email Address</label>
-                                <input type="email" formControlName="email" class="form-control" placeholder="Enter Email Address" />
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label>Pin-code (Zip-code)</label>
-                                <input type="number" formControlName="pincode" class="form-control" placeholder="Enter Pin-code" />
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <label>Full Address</label>
-                                <textarea formControlName="address" class="form-control" rows="2"></textarea>
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <label>Select Payment Mode: </label>
-                                <div class="d-md-flex align-items-start">
-                                    <div class="nav col-md-3 flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                        <button class="nav-link fw-bold" (click)="selectPaymentMode('cashOnDelivery')" type="button" role="tab" aria-selected="true" >Cash on Delivery</button>
-                                        <button class="nav-link fw-bold" (click)="selectPaymentMode('onlinePayment')" type="button" role="tab" aria-selected="false" >Online Payment</button>
-                                    </div>
-                                    <div class="tab-content col-md-9" id="v-pills-tabContent">
-                                        <div *ngIf="selectedPaymentMode === 'cashOnDelivery'">
-                                            <h6>Cash on Delivery Mode</h6>
-                                            <hr/>
-                                            <button type="submit" class="btn btn-primary button-common" >Place Order (Cash on Delivery)</button>
-                                        </div>
-                                        <div *ngIf="selectedPaymentMode === 'onlinePayment'">
-                                            <h6>Online Payment Mode</h6>
-                                            <hr/>
-                                            <button type="submit" class="btn btn-warning button-common"  (click)="pay()">Pay Now (Online Payment)</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
+      <h4>Checkout</h4>
+      <hr>
+      <div class="row">
+        <div class="col-md-12 mb-4">
+          <div class="shadow bg-white p-3">
+            <h4 class="text-primary">
+              Item Total Amount : 
+              <span class="float-end">₹{{Amount}}</span>
+            </h4>
+            <hr>
+            <small>* Items will be delivered in 3 - 5 days.</small>
+            <br/>
+            <small>* Tax and other charges are included ?</small>
+          </div>
         </div>
+        <div class="col-md-12">
+          <div class="shadow bg-white p-3">
+            <h4 class="text-primary">
+              Basic Information
+            </h4>
+            <hr>
+            <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label>Full Name</label>
+                  <input type="text" formControlName="fullname" class="form-control" placeholder="Enter Full Name" />
+                  <div *ngIf="checkoutForm.controls['fullname'].errors && checkoutForm.controls['fullname'].touched" class="text-danger">Full Name is required</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Phone Number</label>
+                  <input type="number" formControlName="phone" class="form-control" placeholder="Enter Phone Number" />
+                  <div *ngIf="checkoutForm.controls['phone'].errors && checkoutForm.controls['phone'].touched" class="text-danger">Please enter a valid phone number</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Email Address</label>
+                  <input type="email" formControlName="email" class="form-control" placeholder="Enter Email Address" />
+                  <div *ngIf="checkoutForm.controls['email'].errors && checkoutForm.controls['email'].touched" class="text-danger">Please enter a valid email address</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Pin-code (Zip-code)</label>
+                  <input type="number" formControlName="pincode" class="form-control" placeholder="Enter Pin-code" />
+                  <div *ngIf="checkoutForm.controls['pincode'].errors && checkoutForm.controls['pincode'].touched" class="text-danger">Please enter a valid pincode</div>
+                </div>
+                <div class="col-md-12 mb-3">
+                  <label>Full Address</label>
+                  <textarea formControlName="address" class="form-control" rows="2"></textarea>
+                  <div *ngIf="checkoutForm.controls['address'].errors && checkoutForm.controls['address'].touched" class="text-danger">Address is required</div>
+                </div>
+                <div class="col-md-12 mb-3">
+                  <label>Select Payment Mode: </label>
+                  <div class="d-md-flex align-items-start">
+                    <div class="nav col-md-3 flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <button class="nav-link fw-bold" (click)="selectPaymentMode('cashOnDelivery')" type="button" role="tab" aria-selected="true"  >Cash on Delivery</button>
+                      <button class="nav-link fw-bold" (click)="selectPaymentMode('onlinePayment')" type="button" role="tab" aria-selected="false"  >Online Payment</button>
+                    </div>
+                    <div class="tab-content col-md-9" id="v-pills-tabContent">
+                      <div *ngIf="selectedPaymentMode === 'cashOnDelivery'">
+                        <h6>Cash on Delivery Mode</h6>
+                        <hr/>
+                        <button type="submit"   class="btn btn-primary button-common" (click)="cash = true" >Place Order (Cash on Delivery)</button>
+                      </div>
+                      <div *ngIf="selectedPaymentMode === 'onlinePayment'">
+                        <h6>Online Payment Mode</h6>
+                        <hr/>
+                        <button type="submit"  class="btn btn-warning button-common"   >Pay Now (Online Payment)</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-
-</div>
-
 
 <div *ngIf="orderPlaced === true" class="thank-you-container"> <!-- Display thank you message if submitted -->
-    <h2 class="thank-you-message">Thank You!</h2>
-  </div>
+  <h2 class="thank-you-message">Thank You!</h2>
+</div>

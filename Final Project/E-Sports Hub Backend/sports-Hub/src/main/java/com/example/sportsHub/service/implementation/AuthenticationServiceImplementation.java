@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.sportsHub.Exception.EmailAlreadyExistsException;
+import com.example.sportsHub.Exception.UserNameAlreadyExistsException;
 import com.example.sportsHub.model.AuthenticationRequest;
 import com.example.sportsHub.model.AuthenticationResponse;
 import com.example.sportsHub.model.EmailDetails;
@@ -47,14 +49,18 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
                         user.setRole(Role.CUSTOMER);
                 
                 User savedUser;
-                try {
-                        if (userRepository.existsByUsername(user.getUsername())) {
-                                throw new Exception("Username or email already exists.");
+                // try {
+                        if (userRepository.existsByUsername(user.getUsername())){
+                                throw new UserNameAlreadyExistsException("Username already exists");
+                        }
+                        if(userRepository.existsByEmail(user.getEmail())) {
+                                throw new EmailAlreadyExistsException("Email already exist");
                         }
                         savedUser = userRepository.save(user);
-                } catch (Exception e) {
-                        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
+                // } catch (Exception e) {
+                //         e.printStackTrace();
+                //         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                // }
                 String jwtToken = jwtService.generateToken(savedUser);
 
 EmailDetails emailDetails = EmailDetails.builder().recipient(user.getEmail())
@@ -86,6 +92,7 @@ EmailDetails emailDetails = EmailDetails.builder().recipient(user.getEmail())
                 AuthenticationResponse response = AuthenticationResponse.builder()
                 .token(jwtToken)
                 .user_id(user.getUser_id()) // Set the user ID
+                .id(user.getId())
                 .role(user.getRole())
                 .build();
 

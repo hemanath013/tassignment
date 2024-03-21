@@ -16,9 +16,9 @@ public class ProductDTO {
     private double price;
     private String category;
     private String brand;
-    private int totalStock;
-    private int getNameCount; 
-    private MultipartFile  image;
+    // private int totalStock;
+    // private int getNameCount; 
+    private String image;
     // @DocumentReference(collection="BranchDetail")
-    private List<BranchDetail> branchDetails;
+    // private List<BranchDetail> branchDetails;
 }

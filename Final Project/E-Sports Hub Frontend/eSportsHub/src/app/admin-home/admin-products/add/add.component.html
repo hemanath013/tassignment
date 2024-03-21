@@ -1,0 +1,65 @@
+
+<div class="container">
+    <form class="form" [formGroup]="AddProducts" (ngSubmit)="onSubmit()">
+
+        <mat-label class="heading">Add New Product</mat-label>
+
+        <mat-divider></mat-divider>
+
+        <div class="form-field">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter product_id</mat-label>
+                <input matInput formControlName="product_id" required>
+            </mat-form-field>
+        </div>
+        <div class="form-field">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter Product Name</mat-label>
+                <input matInput formControlName="name" required>
+            </mat-form-field>
+        </div>
+        <div class="form-field">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter Description</mat-label>
+                <input matInput formControlName="description" required>
+            </mat-form-field>
+        </div>
+        <div class="form-field">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter Price</mat-label>
+                <input matInput formControlName="price" required type="number">
+            </mat-form-field>
+        </div>
+        <div class="form-field">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter Category</mat-label>
+                <input matInput formControlName="category" required>
+            </mat-form-field>
+        </div>
+        <div class="form-field">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter Brand Name</mat-label>
+                <input matInput formControlName="brand" required>
+            </mat-form-field>
+        </div>       
+
+        <div class="form-field">
+            <div class="input-file-container">
+                <button mat-raised-button class="input-file-button" (click)="uploadFile.click()" type="button">Choose File</button>
+                <input #uploadFile class="input-file" (change)="onFileUpload($event)" type="file">
+            </div>
+        </div>
+        <div *ngIf="fileName[0]">
+            <div class="images-selected">
+                Selected Images
+            </div> 
+            <div *ngFor="let item of fileName">
+                <div>{{item}}</div>
+            </div>
+        </div>
+
+        <div class="form-field-submit">
+            <button mat-raised-button style="background-color: #b8b8b8de; color:white">ADD Product</button>
+        </div>
+   </form>
+</div>

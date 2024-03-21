@@ -12,6 +12,7 @@
 
 .product-details {
     padding-left: 20px;
+    text-decoration: none;
 }
 
 .product-name {
@@ -42,10 +43,10 @@
 }
 
 .btn1 {
-    border: 1px solid;
+    // border: 1px solid;
     margin-right: 3px;
     border-radius: 0px;
-    font-size: 12px;
+    font-size: 17px;
     margin-top: 10px;
 }
 
@@ -68,4 +69,19 @@
     padding: 20px; /* Add some padding for better appearance */
     border-radius: 10px;
     box-shadow: 10px 10px 10px rgba(11, 11, 11, 0.1); /* Add box shadow */
+    padding-top: 100px;
+}
+a{
+    text-decoration: none;
+    
+}
+
+h5{
+    // margin: 20px;
+    margin-right: 90px;
+    margin-top: 30px;
+    font-size: 30px;
+}
+p{
+    margin-left: 90px;
 }

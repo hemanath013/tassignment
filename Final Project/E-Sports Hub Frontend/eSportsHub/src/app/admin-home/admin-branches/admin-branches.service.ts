@@ -8,17 +8,27 @@ import { environment } from 'src/environments/environment.development';
 })
 export class AdminBranchesService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getData():Observable<branches>{
-    return this.http.get<branches>(environment.grtAllBranchesUrl);
-
+  getData(): Observable<branches[]> {
+    return this.http.get<branches[]>(`${environment.baseUrl}/branches`);
   }
 
-  updateData(branches: branches[]): Observable<any> {
-    return this.http.put(`${environment.updateBranchUrl}/${branches[0].branch_id}`, branches);
+  updateData(branches: branches): Observable<any> {
+    // Assuming branches[0] contains the branch data to be updated
+    return this.http.put(`${environment.baseUrl}/branches/${branches.id}`, branches);
   }
 
 }
 
-export interface branches{branch_id:string,name:string,location:string,manager:string,phone:string,email:string,editing?: boolean;}
+export interface branches {
+  id: string;
+  branch_id: string;
+  name: string;
+  location: string;
+  manager: string;
+  phone: string;
+  email: string;
+  editing?: boolean;
+}
+

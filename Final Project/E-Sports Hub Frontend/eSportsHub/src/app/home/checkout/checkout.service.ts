@@ -15,7 +15,7 @@ export class CheckoutService {
 
 
   createOrder(amount: number) {
-    return this.http.get(`${environment.paymentUrl}createTransaction/${amount}`);
+    return this.http.get(`${environment.baseUrl}/transaction/createTransaction/${amount}`);
   }
 
   getCartItems(): any[] {
@@ -28,8 +28,7 @@ export class CheckoutService {
   }
 
   post(formData:any):Observable<any>{
-    return this.http.post<any>(environment.PostOrdersUrl,formData)
+    return this.http.post<any>(`${environment.baseUrl}/api/orders`,formData)
   }
 
-  
 }

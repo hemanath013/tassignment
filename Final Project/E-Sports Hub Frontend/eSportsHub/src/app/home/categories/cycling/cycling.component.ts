@@ -20,8 +20,8 @@ constructor(private service:CyclingService,private router:Router,private cartSer
 
  cycle:any;
 get() {
-  this.service.getData().subscribe((data) => { 
-    console.log(data);
+  this.service.getData("cycle").subscribe((data) => { 
+    // console.log(data);
     this.cycle = data;
   });
 }
@@ -32,7 +32,7 @@ navigate(id:any){
 
 addToCart(item) {
  this.cartService.addToCart(item);
-console.log('Item added to cart:', item);
+// console.log('Item added to cart:', item);
 }
 
 

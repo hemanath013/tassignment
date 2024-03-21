@@ -1,4 +1,6 @@
-<app-header></app-header>
+<ng-container *ngIf="flag == 'true'">
+  <app-header></app-header>
+</ng-container>
 
 <div *ngIf="myCart !== []">
   <div class="cart-container">
@@ -6,7 +8,7 @@
     <mat-dialog-content class="cart-items">
       <div *ngFor="let item of myCart" class="cart-item">
         <span>{{ item.name }}</span>
-        <span>{{ item.price | currency }}</span>
+        <span>{{ item.price | currency : "INR" }}</span>
         <div class="quantity-buttons">
           <button (click)="decreaseQuantity(item)">-</button>
           <span>{{ item.quantity }}</span>
@@ -18,14 +20,34 @@
 
     <mat-dialog-actions align="end">
       <div class="cart-summary">
-        <h3>Total: {{ getTotal() | currency }}</h3>
-        <a href="javascript:void(0)" routerLink="/cart/checkout"><button mat-dialog-close>Checkout</button></a>
-        <button mat-button mat-dialog-close>Cancel</button>
+        <h3>Total: {{ getTotal() | currency : "INR" }}</h3>
+
+        <ng-container
+          *ngIf="isThere; then Authenticated; else notAuthenticated"
+        >
+        </ng-container>
+
+        <ng-template #notAuthenticated>
+          <span class="sp">Please Login for Checkout</span>
+          <a href="javascript:void(0)" routerLink="/cartt/login"
+            ><button mat-dialog-close>Login</button></a
+          >
+        </ng-template>
+
+        <ng-template #Authenticated>
+          
+          <a href="" routerLink="/cartt/checkout" style="text-decoration: none;">
+            <span style="pointer-events: none; color: black;">When you check out, the item will be removed from inventory</span>
+            <button mat-dialog-close>Checkout</button>
+        </a>
+        
+          <button mat-button mat-dialog-close>Cancel</button>
+        </ng-template>
       </div>
     </mat-dialog-actions>
   </div>
 </div>
 
-<div *ngIf="myCart.length === 0">
+<div *ngIf="myCart.length === 0" class="empty">
   <h1>Your Cart is Empty</h1>
 </div>

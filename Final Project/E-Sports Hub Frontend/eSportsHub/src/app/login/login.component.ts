@@ -13,40 +13,46 @@ import { LoginResponse } from '../service/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  
   submit = false;
   errorMessage = "";
 
-  constructor(private loginService:LoginService, private route:Router){}
+  constructor(private loginService:LoginService , private route:Router){}
 
 
   log = new FormGroup ({
-    UserName: new FormControl("",Validators.required),
-    password: new FormControl("",Validators.required)
+    UserName: new FormControl("" , Validators.required),
+    password: new FormControl("" , Validators.required)
   });
 
-  formData = {username:"",password:""}
+  formData = {username: "" , password: ""}
 
   onSubmit(){
-     this.formData.username = this.log.controls.UserName.value,
-     this.formData.password = this.log.controls.password.value,
 
+     this.formData.username = this.log.controls.UserName.value,
+     this.formData.password = this.log.controls.password.value;
+
+ 
+     if (!this.log.valid) {
+      this.errorMessage = "Please fill out both username and password fields.";
+      return;
+    }
 
     this.loginService.login(this.formData).subscribe((data) =>{
-      console.log(data.token,"hlo");  
-      console.log(data.user_id);
-      console.log(data.role);
       
        
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("role", data.role);
+      localStorage.setItem("token" , data.token);
+      localStorage.setItem("role" , data.role);
       
-      localStorage.setItem('isLogin',"true")
-      localStorage.setItem("userId", data.user_id);
+      localStorage.setItem('isLogin' ,"true");
+      // console.log(data.id);
+      
+      localStorage.setItem("Id" , data.id);
 
-      if (data.user_id !== null) {
-        localStorage.setItem("userId", data.user_id);
+      if (data.id !== null) {
+        localStorage.setItem("userId" , data.id);
       } else {
-        console.error("User ID is null in the response.");
+        // console.log("User ID is null in the response.");
         this.errorMessage = "Please check your UserId"
       }
       if(data.role === 'CUSTOMER'){
@@ -56,14 +62,12 @@ export class LoginComponent {
       }else if(data.role === 'MANAGER'){
         this.route.navigate(['manager']);
       }
-
-      
-      
     },
     (error) => {
-      console.error('Login error:', error);
-      this.errorMessage = "No User Found"
-
+      console.error('Login error:' , error);
+      if (error) {
+        this.errorMessage = "Invalid username or password. Please try again.";
+      }
     }
     
     );

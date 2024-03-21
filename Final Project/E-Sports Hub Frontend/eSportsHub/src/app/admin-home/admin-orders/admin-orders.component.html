@@ -2,6 +2,10 @@
 <app-admin-header></app-admin-header>
 <app-admin-navbar></app-admin-navbar>
 <div class="right">
+  <div class="text-center">
+    <input type="text" class="search"  placeholder="Search here" (input)="handleInput($event)">
+  </div>
+  <div class="container">
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
     <!-- _id Column -->
     <!-- <ng-container matColumnDef="_id">
@@ -14,7 +18,7 @@
   
     <!-- user_id Column -->
     <ng-container matColumnDef="userId">
-      <th mat-header-cell *matHeaderCellDef>userId</th>
+      <th mat-header-cell *matHeaderCellDef>UserId</th>
       <td mat-cell *matCellDef="let order">
         <span *ngIf="!order.editing">{{ order.userId }}</span>
         <input *ngIf="order.editing" type="text" [(ngModel)]="order.userId" (keyup.enter)="toggleEdit(order)">
@@ -23,7 +27,7 @@
   
     <!-- username Column -->
     <ng-container matColumnDef="totalPrice">
-      <th mat-header-cell *matHeaderCellDef>totalPrice</th>
+      <th mat-header-cell *matHeaderCellDef>TotalPrice</th>
       <td mat-cell *matCellDef="let order">
         <span *ngIf="!order.editing">{{ order.totalPrice }}</span>
         <input *ngIf="order.editing" type="text" [(ngModel)]="order.totalPrice" (keyup.enter)="toggleEdit(order)">
@@ -32,7 +36,7 @@
   
     <!-- email Column -->
     <ng-container matColumnDef="fullName">
-      <th mat-header-cell *matHeaderCellDef>fullName</th>
+      <th mat-header-cell *matHeaderCellDef>FullName</th>
       <td mat-cell *matCellDef="let order">
         <span *ngIf="!order.editing">{{ order.fullName }}</span>
         <input *ngIf="order.editing" type="text" [(ngModel)]="order.fullName" (keyup.enter)="toggleEdit(order)">
@@ -41,7 +45,7 @@
   
     <!-- address Column -->
     <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef>phone</th>
+      <th mat-header-cell *matHeaderCellDef>Phone</th>
       <td mat-cell *matCellDef="let order">
         <span *ngIf="!order.editing">{{ order.phone }}</span>
         <input *ngIf="order.editing" type="text" [(ngModel)]="order.phone" (keyup.enter)="toggleEdit(order)">
@@ -50,7 +54,7 @@
   
     <!-- phone Column -->
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef>email</th>
+      <th mat-header-cell *matHeaderCellDef>Email</th>
       <td mat-cell *matCellDef="let order">
         <span *ngIf="!order.editing">{{ order.email }}</span>
         <input *ngIf="order.editing" type="text" [(ngModel)]="order.email" (keyup.enter)="toggleEdit(order)">
@@ -59,7 +63,7 @@
   
     <!-- role Column -->
     <ng-container matColumnDef="fullAddress">
-      <th mat-header-cell *matHeaderCellDef>fullAddress</th>
+      <th mat-header-cell *matHeaderCellDef>FullAddress</th>
       <td mat-cell *matCellDef="let order">
         <span *ngIf="!order.editing">{{ order.fullAddress }}</span>
         <input *ngIf="order.editing" type="text" [(ngModel)]="order.fullAddress" (keyup.enter)="toggleEdit(order)">
@@ -67,7 +71,7 @@
     </ng-container>
 
     <ng-container matColumnDef="paymentMethod">
-      <th mat-header-cell *matHeaderCellDef>paymentMethod</th>
+      <th mat-header-cell *matHeaderCellDef>PaymentMethod</th>
       <td mat-cell *matCellDef="let order">
         <span *ngIf="!order.editing">{{ order.paymentMethod }}</span>
         <input *ngIf="order.editing" type="text" [(ngModel)]="order.paymentMethod" (keyup.enter)="toggleEdit(order)">
@@ -75,7 +79,7 @@
     </ng-container>
 
     <ng-container matColumnDef="orderDate">
-      <th mat-header-cell *matHeaderCellDef>orderDate</th>
+      <th mat-header-cell *matHeaderCellDef>OrderDate</th>
       <td mat-cell *matCellDef="let order">
         <span *ngIf="!order.editing">{{ order.orderDate }}</span>
         <input *ngIf="order.editing" type="text" [(ngModel)]="order.orderDate" (keyup.enter)="toggleEdit(order)">
@@ -83,27 +87,26 @@
     </ng-container>
 
     <ng-container matColumnDef="products">
-      <th mat-header-cell *matHeaderCellDef>products</th>
+      <th mat-header-cell *matHeaderCellDef>Products</th>
       <td mat-cell *matCellDef="let order">
-        <span *ngIf="!order.editing">{{ getBranchDetailsString(order.products) }}</span>
-        <input *ngIf="order.editing" type="text" [(ngModel)]="details.products  " (keyup.enter)="toggleEdit(order)">
+        <span>{{ getBranchDetailsString(order.products) }}</span>
       </td>
     </ng-container>
+    
   
     <!-- Edit Action Column -->
-    <ng-container matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let order">
-        <button mat-icon-button (click)="toggleEdit(order)">
-          <mat-icon>{{ order.editing ? 'save' : 'edit' }}</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+
 
   <!-- Header and Row Definitions -->
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </mat-table>
+</div>  
+<mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="length"
+[pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+[pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize"
+[pageIndex]="pageIndex" aria-label="Select page">
+</mat-paginator>
 
-<button mat-button color="primary" (click)="updateData()">Update</button>
+<!-- <button mat-button color="primary" (click)="updateData()">Update</button> -->
 </div>

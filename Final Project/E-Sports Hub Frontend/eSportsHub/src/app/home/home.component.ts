@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ProductcardsService } from './productcards/productcards.service';
 
 @Component({
   selector: 'app-home',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  constructor(private productCardService: ProductcardsService) {}
+
+  searchedValue(event: string) {  
+    console.log(event);
+    
+    // this.productCardService.getData(event).subscribe({
+    //   next: (response) => {
+    //     console.log(response);
+        
+    //   }
+    // })
+  }
 }

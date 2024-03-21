@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ManagerHeaderComponent {
   Onclick(){
-    sessionStorage.removeItem("token")
+    localStorage.clear();
   }
 
 

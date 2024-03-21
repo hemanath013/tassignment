@@ -11,30 +11,29 @@ export class AdminUsersService {
 
   constructor(private http:HttpClient) { }
 
-  private usera:string = '';
+  private   usera:string = '';
 
 
-  getData():Observable<user>{
-    return this.http.get<user>(environment.grtAllUsersUrl)
+  getData():Observable<user[]>{
+    return this.http.get<user[]>(`${environment.baseUrl}/api/users`)
   }
 
-  updateData(users: user[]): Observable<any> {
-    return this.http.put(`${environment.getOrdersUrl}/${users[0].user_id}`, users);
+  updateData(user: user): Observable<any> {
+    return this.http.put(`${environment.baseUrl}/api/users/${user.id}`, {"id":user.id , "user_id":user.user_id ,"username": user.username ,"email": user.email,"address":  user.address,"phone":  user.phone,"role":  user.role,"editing":user.editing});
   }
-  // private myUserId = 'userId';
 
   getUserId(): string{
 
     this.usera = localStorage.getItem('userId');
-    console.log(this.usera);
+    // console.log(this.usera);
     
     return this.usera;
     
   } 
 
   getDa():Observable<user>{
-    return this.http.get<user>(`${environment.grtAllUsersUrl}/${this.usera}`)
+    return this.http.get<user>(`${environment.baseUrl}/api/users/${this.usera}`)
 
   }
 }
-export interface user{user_id:string,username:string,email:string,address:string,phone:string,role:string,editing?: boolean;}
+export interface user{id:string,user_id:string,username:string,email:string,address:string,phone:string,role:string,editing?: boolean;}

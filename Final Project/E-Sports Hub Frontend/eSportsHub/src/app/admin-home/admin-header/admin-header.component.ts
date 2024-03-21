@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-header.component.scss']
 })
 export class AdminHeaderComponent {
-  Onclick(){
-    sessionStorage.removeItem("token")
+
+ Onclick(){
+    localStorage.clear();
   }
 }

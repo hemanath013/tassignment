@@ -5,6 +5,15 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { MatSelectChange } from '@angular/material/select';
 import { AdminProductsService, BranchDetails, products } from 'src/app/admin-home/admin-products/admin-products.service';
+import { debounceTime } from 'rxjs/operators';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import { PageEvent } from '@angular/material/paginator';
+// import products from 'razorpay/dist/types/products';
+// import products from 'razorpay/dist/types/products';
 
 @Component({
   selector: 'app-manager-products',
@@ -12,6 +21,32 @@ import { AdminProductsService, BranchDetails, products } from 'src/app/admin-hom
   styleUrls: ['./manager-products.component.scss']
 })
 export class ManagerProductsComponent {
+
+  length = 0;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+
+  hidePageSize = false;
+  showPageSizeOptions = false;
+  showFirstLastButtons = true;
+  disabled = false;
+
+  pageEvent: PageEvent | undefined;
+
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+    this.get();
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
 
   ELEMENT_DATA:any;
   displayedColumns: string[] = ['product_id', 'name', 'description', 'price', 'category', 'brand', 'totalStock', 'branchDetails','image','edit'];
@@ -22,13 +57,23 @@ export class ManagerProductsComponent {
     this.get();
   }
 
-  get(){
+  get(): void{
     this.service.getData().subscribe(
-      (data) => { console.log(data);
-        this.ELEMENT_DATA = data;
-        this.dataSource = this.ELEMENT_DATA
-       });
-  }
+      (data) => {
+        // console.log(data);
+        
+          this.length = data.length;
+          const startIndex = this.pageIndex*this.pageSize;
+          const endIndex = this.pageIndex*this.pageSize + this.pageSize;
+          this.ELEMENT_DATA = data.slice(startIndex, endIndex);
+          this.dataSource.data = this.ELEMENT_DATA;  
+       
+        },
+        (error) => {
+          console.error("Error fetching data:", error);
+        }
+      );
+    }
 
   
   details:any;
@@ -50,16 +95,23 @@ export class ManagerProductsComponent {
   
   toggleEdit(products: products): void {
     products.editing = !products.editing;
-    if (!products.editing) {
-      
-    }
   }
+
+  handleInput(event: any) {
+    const searchValue = event.target.value.toLowerCase(); // Convert search value to lowercase
+    const debouncedInput = this.service.getData().pipe(debounceTime(300));
+    
+    debouncedInput.subscribe((res) => {
+      this.dataSource.data = res.filter((item) => item.name.toLowerCase().includes(searchValue));
+    });
+  }
+
 
   updateData(): void {
     // Assuming you have a method in your service to update data
     this.service.updateData(this.ELEMENT_DATA).subscribe(
       () => {
-        console.log("Data updated successfully");
+        // console.log("Data updated successfully");
         this.get();
       },
       (error) => {
@@ -68,12 +120,46 @@ export class ManagerProductsComponent {
     );
   }
 
+
+file: File;
+
+onFileUpload(event: any) {
+  this.file =  event.target.files[0];
+}
+
 // Inside ManagerProductsComponent class
-onFileSelected(event: any, product: products) {
-  const file: File = event.target.files[0];
+onFileSelected(product: products) {
+  // console.log(product);
+  
   const formData = new FormData();
-  formData.append('file', file);
-  console.log('Uploading image for product:', product, 'File:', file);
+  formData.append('id', product.id),
+  formData.append('product_id', product.product_id),
+  formData.append('name', product.name),
+  formData.append('description', product.description),
+  formData.append('price', product.price.toString()),
+  formData.append('category', product.category),
+  formData.append('brand', product.brand),
+  formData.append('totalStock', product.totalStock.toString());
+
+  if (this.file !== null) {
+    formData.append('file', this.file);  
+  }
+  else{
+    const emptyFile = new File([""], "empty.txt", {
+      type: "text/plain",
+    });
+    formData.append('file',emptyFile);
+  }
+  
+  
+  this.service.updateData(formData).subscribe({
+    next: (response) => {
+      // console.log(response);
+      
+    }
+  })
+
+  // console.log('Uploading image for product:', product, 'File:', this.file);
 }
 
 

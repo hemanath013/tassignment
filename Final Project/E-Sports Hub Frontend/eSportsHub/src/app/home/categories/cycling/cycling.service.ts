@@ -10,11 +10,12 @@ export class CyclingService {
 
   constructor(private http:HttpClient) { }
  
-  getData():Observable<products[]>{
-    return this.http.get<products[]>(`${environment.productGetUrlByCategories}cycle`);
+  getData(category:string):Observable<products[]>{
+    // console.log(category);
+    return this.http.get<products[]>(`${environment.baseUrl}/api/products/by-category/${category}`);
 
   }
 
 }
 
-export interface products{name:string,description:string,price:number,brand:string,image:string}
+export interface products{name:string,description:string,price:number,brand:string,image:string,category:string}

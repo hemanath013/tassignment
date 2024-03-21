@@ -9,11 +9,11 @@ import { environment } from 'src/environments/environment.development';
 export class RegisterService {
 
   constructor(private http:HttpClient) { }
-  register(username:any,email:any,password:any,address:any,phone:any) : Observable<RegisterResponse>{
+  register(username:any , email:any , password:any , address:any , phone:any) : Observable<RegisterResponse>{
 
-    const body = {username,email,password,address,phone}
+    const body = {username , email , password , address , phone}
     
-    return this.http.post<RegisterResponse>(environment.registerUrl,body)
+    return this.http.post<RegisterResponse>(`${environment.baseUrl}/api/auth/register` , body)
 
   }
 }

@@ -5,6 +5,9 @@ import { Form } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import payments from 'razorpay/dist/types/payments';
 import { user } from '../../admin-home/admin-users/admin-users.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 declare const Razorpay: any;
 
@@ -16,15 +19,23 @@ declare const Razorpay: any;
 export class CheckoutComponent implements OnInit {
   myCart: any[];
   user_id:string;
+  paymentEnabled: boolean = false;
+  checkoutForm: FormGroup;
+  Amount: number;
+  selectedPaymentMode: string;
+  PaymentMethod: string;
+
   constructor(
     private service: CheckoutService,
     private se: CartService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private http:HttpClient,
+    private router:Router
   ) {
     this.myCart = this.service.getCartItems();
-    console.log(this.myCart);
+    // console.log(this.myCart);
     this.user_id = this.service.getUserId();
-    console.log(this.user_id);
+    // console.log(this.user_id);
     
   }
 
@@ -67,7 +78,8 @@ export class CheckoutComponent implements OnInit {
     razorpayObject.open();
   }
   processResponse(response: any) {
-    console.log(response);
+    this.router.navigate(["/cart"])
+    // console.log(response);
   }
 
   pay() {
@@ -77,59 +89,47 @@ export class CheckoutComponent implements OnInit {
       },
     });
   }
-  Amount: number;
-  checkoutForm: FormGroup;
-  selectedPaymentMode: string;
-  PaymentMethod: string;
+
 
   ngOnInit(): void {
+    this.get(); // Fetch the amount asynchronously if needed
+  
+    // Initialize the form without setting totalPrice initially
     this.checkoutForm = this.formBuilder.group({
-      fullname: ['', Validators.required],
-      phone: ['', Validators.required],
-      email: ['', Validators.required],
-      pincode: ['', Validators.required],
-      address: ['', Validators.required],
-      PaymentMethod: ['', Validators.required],
-      totalPrice: [this.Amount, Validators.required],
+      fullname: ['',[ Validators.required]],
+      phone: ['', [Validators.required, Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      pincode: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
+      address: ['', [Validators.required]],
+      PaymentMethod: [''],
+      totalPrice: [''], 
     });
-    this.get();
   }
+  
 
   get() {
     this.se.getAmount().subscribe((data) => {
       this.Amount = data;
+      // this.checkoutForm.get('totalPrice').setValue(this.Amount); // Set totalPrice after fetching the amount
+      // this.checkPaymentValidity(); // Check payment validity after setting the totalPrice
     });
   }
 
   selectPaymentMode(mode: string) {
-   // console.log(mode);
-    
+    this.checkoutForm.get('PaymentMethod').setValue(mode);
     this.selectedPaymentMode = mode;
-    this.checkoutForm.value.PaymentMethod = mode;
-    //console.log(this.checkoutForm.value.PaymentMethod);
-    if(mode === 'cashOnDelivery'){
-       setTimeout(() => {
-          this.orderPlaced = true;
-       }, 4000);
-    }else{
-      setTimeout(() => {
-        this.orderPlaced = true;
-     },15*1000);
-      
-    }
-    
-    
+    // this.checkPaymentValidity(); // Check form validity after setting payment method
   }
 
   orderPlaced: boolean = false;
+  cash: boolean = false;
   onSubmit() {
-    //this.checkoutForm.value.PaymentMethod
-    // Handle form submission
     localStorage.removeItem('MyCart');
     this.checkoutForm.value.totalPrice = this.Amount;
+   
     const product:any[]=[];
     this.myCart.forEach((val)=>{
-      product.push({'product_id':val.product_id,'name':val.name,'quantity':val.quantity})
+      product.push({'productId':val.product_id,'name':val.name,'quantity':val.quantity})
       
     })
     this.formData.userId = this.user_id,
@@ -141,10 +141,40 @@ export class CheckoutComponent implements OnInit {
     this.formData.pinCode = this.checkoutForm.value.pincode
     this.formData.fullAddress = this.checkoutForm.value.address
     this.formData.paymentMethod = this.checkoutForm.value.PaymentMethod
-    console.log(this.formData);
+    // console.log(this.formData.products);
+    // console.log(this.formData.totalPrice);
+
+    if(this.checkoutForm.valid){
+  this.paymentEnabled = true;
+  if(this.cash === true){
+   
+    
+  }else{
+    this.pay();
+  }
+  
+  
+    }
+    else{
+      
+      Swal.fire({
+        title: "OOPS!",
+        text: "Please Enter Valid Input",
+        icon: "error"
+      });
+      return
+    }
+
+    
     this.service.post(this.formData).subscribe({
       next: (response) => {
-        console.log('Order placed successfully:', response);
+        // console.log('Order placed successfully:', response);
+        // console.log(this.cash,"cash");
+        
+        if(this.cash === true){
+        this.router.navigate(["/cart"])
+        }
+        
       },
       error: (error) => {
         console.error('Error placing order:', error);
@@ -165,5 +195,18 @@ export class CheckoutComponent implements OnInit {
   };
 
 
+  checkPaymentValidity() {
+    if (this.checkoutForm.invalid) {
+      // console.log(this.checkoutForm.value);
+      // console.log('Form Validity:', this.checkoutForm.valid);
+      // console.log(' price:', this.checkoutForm.controls['totalPrice'].valid);
+
+  }
 }
+}
+  
+  
+  
+
+
 

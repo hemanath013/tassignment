@@ -7,11 +7,18 @@
   <img [src]="images[currentStepIndex]" alt="Step Image">
   </div>
 
-
+  <!-- <button mat-raised-button (click)="isEditable = !isEditable">
+    {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
+  </button> -->
 
 <div class="con">
-<mat-stepper #stepper>
-  <mat-step [stepControl]="firstFormGroup" errorMessage="Name is required.">
+  <div class="brand">
+    <a href=" " class="navbar-brand" routerLink="/">
+        STARIM<span class="boo">boo</span>
+      </a> 
+  </div>
+  <mat-stepper linear #stepper>
+  <mat-step [stepControl]="firstFormGroup" errorMessage="Name is required." [editable]="isEditable">
     <form [formGroup]="firstFormGroup" >
       <ng-template matStepLabel>Fill out your name</ng-template>
       <mat-form-field appearance="fill">
@@ -19,12 +26,12 @@
         <input matInput placeholder="Name" formControlName="firstCtrl" required>
       </mat-form-field>
       <div>
-        <p>Go to a different step to see the error state</p>
+        <p>Please ensure all information provided is accurate and complete before proceeding.</p>
         <button mat-button matStepperNext (click)="onNext()">Next</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup" errorMessage="Email is required.">
+  <mat-step [stepControl]="secondFormGroup" errorMessage="Email is required." [editable]="isEditable">
     <form [formGroup]="secondFormGroup" >
       <ng-template matStepLabel>Fill out your Email </ng-template>
       <mat-form-field appearance="fill">
@@ -33,14 +40,14 @@
                required>
       </mat-form-field>
       <div>
-        <p>Go to a different step to see the error state</p>
+        <p>Please ensure all information provided is accurate and complete before proceeding.</p>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext (click)="onNext()">Next</button>
       </div>
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="thirdFormGroup" errorMessage="password must be at least 8 characters including(uppercase)">
+  <mat-step [stepControl]="thirdFormGroup" errorMessage="password must be at least 8 characters including(uppercase)" [editable]="isEditable">
     <form [formGroup]="thirdFormGroup" >
       <ng-template matStepLabel>Fill out your Password</ng-template>
       <mat-form-field appearance="fill">
@@ -56,7 +63,7 @@
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="fourthFormGroup" errorMessage="address is required.">
+  <mat-step [stepControl]="fourthFormGroup" errorMessage="address is required." [editable]="isEditable">
     <form [formGroup]="fourthFormGroup" >
       <ng-template matStepLabel>Fill out your address</ng-template>
       <mat-form-field appearance="fill">
@@ -65,14 +72,14 @@
                required>
       </mat-form-field>
       <div>
-        <p>Go to a different step to see the error state</p>
+        <p>Please ensure all information provided is accurate and complete before proceeding.</p>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext (click)="onNext()">Next</button>
       </div>
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="fifthFormGroup" errorMessage="phone no is required.">
+  <mat-step [stepControl]="fifthFormGroup" errorMessage="phone no is required." [editable]="isEditable">
     <form [formGroup]="fifthFormGroup" (ngSubmit)="onSubmit()">
       <ng-template matStepLabel>Fill out your Phone no</ng-template>
       <mat-form-field appearance="fill">
@@ -81,7 +88,7 @@
                required>
       </mat-form-field>
       <div>
-        <p>You are now done.</p>
+        <p>You are now done with the registration process. Thank you for providing your information.</p>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button type="submit" >Register</button>

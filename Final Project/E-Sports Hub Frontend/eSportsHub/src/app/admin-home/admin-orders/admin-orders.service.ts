@@ -11,17 +11,17 @@ export class AdminOrdersService {
 
   constructor(private http:HttpClient) { }
 
-  getData():Observable<order>{
-    return this.http.get<order>(environment.getOrdersUrl)
+  getData():Observable<order[]>{
+    return this.http.get<order[]>(`${environment.baseUrl}/api/orders`)
   }
-  updateData(orders: order[]): Observable<any> {
-    return this.http.put(`${environment.updateOrderUrl}/${orders[0]._id}`, orders);
+  updateData(orders: order): Observable<any> {
+    return this.http.put(`${environment.baseUrl}/api/orders/${orders.id}`, orders);
   }
 
 }
 export interface order{  
-  _id:string,
-  userId:string,
+id:string,
+userId:string,
 products: [],
 totalPrice: number,
 fullName:string,
@@ -33,4 +33,4 @@ paymentMethod: string,
 editing?: boolean;
 }
 
-export interface products{product_id:string,quantity:number}
+export interface products{productId:string,quantity:number}

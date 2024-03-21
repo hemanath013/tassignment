@@ -5,8 +5,11 @@ import { CategoriesRoutingModule } from './categories-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 
 
+
 @NgModule({
-  declarations: [],
+  declarations: [
+   
+  ],
   imports: [
     CommonModule,
     CategoriesRoutingModule,

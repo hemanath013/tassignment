@@ -3,20 +3,20 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { LoginComponent } from '../login/login.component';
+import { Token } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   
-  
+
 
   constructor(private http:HttpClient) { }
 
   login(formData:any):Observable<LoginResponse>{
-    console.log(formData);
     
-    return this.http.post<LoginResponse>(environment.loginUrl,formData);
+    return this.http.post<LoginResponse>(`${environment.baseUrl}/api/auth/login` , formData);
      
 
   }
@@ -29,13 +29,10 @@ export class LoginService {
       return false;
     }
  }
-
-
-
 }
- export interface LoginResponse{
-  user_id: string | null;
+
+export interface LoginResponse{
+  id:string;
   role:string;
-  token: string;
- 
- }
+  token:string;
+}

@@ -33,9 +33,9 @@ export class CartService {
       myCart.splice(itemIndex, 1);
       localStorage.setItem(this.myCartKey, JSON.stringify(myCart));
     }
-    console.log('Item to remove:', item);
-console.log('Current Cart:', myCart);
-console.log('Index to remove:', itemIndex);
+//     console.log('Item to remove:', item);
+// console.log('Current Cart:', myCart);
+// console.log('Index to remove:', itemIndex);
 
   }
 
@@ -71,11 +71,6 @@ console.log('Index to remove:', itemIndex);
   getCartItems(): any[] {
     return JSON.parse(localStorage.getItem(this.myCartKey) || '[]');
   }
-
-
-  // post():Observable<ordersHalf>{
-  //   return this.http.post<ordersHalf>("".{});
-  // }
 
   getAmount() {
     return this.amount.asObservable();

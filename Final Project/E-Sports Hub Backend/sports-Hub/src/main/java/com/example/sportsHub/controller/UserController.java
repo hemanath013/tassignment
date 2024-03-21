@@ -40,19 +40,29 @@ public class UserController {
     }
 
     @GetMapping("/byUsername/{username}")
-    @PreAuthorize ("hasRole('ADMIN') or hasRole('OWNER')")
+    // @PreAuthorize ("hasRole('ADMIN') or hasRole('OWNER')")
     public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
         Optional<User> user = userService.getUserByUsername(username);
         return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/{userId}")
-    @PreAuthorize ("hasRole('ADMIN') or hasRole('OWNER') or hasRole('CUSTOMER')")
-    public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody User user) {
-        User updatedUser = userService.updateUser(userId, user);
-        return updatedUser != null ? new ResponseEntity<>(updatedUser, HttpStatus.OK) :
-                new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // @PutMapping("/{userId}")
+    // // @PreAuthorize ("hasRole('ADMIN') or hasRole('OWNER') or hasRole('CUSTOMER')")
+    // public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody User user) {
+    //     User updatedUser = userService.updateUser(userId, user);
+    //     return updatedUser != null ? new ResponseEntity<>(updatedUser, HttpStatus.OK) :
+    //             new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUserById(@PathVariable String id, @RequestBody User newUser) {
+        User updatedUser = userService.updateUser(id, newUser);
+        if (updatedUser != null) {
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{userId}")

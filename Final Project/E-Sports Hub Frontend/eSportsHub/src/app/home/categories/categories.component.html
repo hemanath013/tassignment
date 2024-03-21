@@ -1,6 +1,4 @@
-
-
-<div class="py-3 py-md-5 bg-light">
+<!-- <div class="py-3 py-md-5 bg-light">
     <div class="container">
         <div class="row">
             <div class="col-6 col-md-3">
@@ -53,4 +51,23 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<div class="py-3 py-md-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <ng-container *ngFor="let category of categories">
+        <div class="category-card">
+            <div >
+                <div class="category-card-img" (click)="navigateToCategory(category)">
+                    <img src="/assets/img/spo.jpg" class="w-100" alt="" />
+                  </div>
+                  <div class="category-card-body" (click)="navigateToCategory(category)">
+                    <h5 style="text-transform: uppercase;" >{{ category }}</h5>
+                  </div>
+            </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
 </div>

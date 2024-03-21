@@ -17,6 +17,22 @@
   align-items: center; /* Center horizontally */
 }
 
+.brand {
+  color: #f4f3f3;
+  font-size: 1.5rem;
+  font-family: 'OCR A Std', monospace;
+}
+
+.brand .boo {
+  color: #f10e0e;
+}
+
+.brand a {
+  text-decoration: none;
+  border: none;
+}
+  
+
 // .container {
 //   background-image: url('/assets/img/41.jpg');
 //   background-size: cover; /* Adjust the image size to cover the container */
@@ -32,7 +48,7 @@
 
 
 .login-sec {
-  padding: 30px;
+  // padding: 30px;
   position: relative;
 }
 
@@ -54,7 +70,7 @@
 }
 
 .form-group {
-  width: 100%; /* Ensure form group takes full width */
+  width: 100%; 
   margin-bottom: 20px; /* Add space below each form group */
 }
 
@@ -64,7 +80,7 @@
 }
 
 .form-control {
-  width: calc(100% - 20px); /* Make input width 100% minus padding */
+  width: 250px; /* Make input width 100% minus padding */
   padding: 10px; /* Add padding inside input */
 }
 
@@ -77,13 +93,26 @@
 .error-message {
   color: red;
   font-size: 14px;
+  font-weight: 400;
 }
 
 .background-image {
-  background-image: url('/assets/img/43.jpg'); /* Replace 'background.jpg' with the path to your background image */
-  background-size: cover; /* Adjust the image size to cover the container */
-  background-position: center; /* Center the background image */
+  background-image: url('/assets/img/43.jpg');
+  background-size: cover; 
+  background-position: center; 
   width: 100%;
   height: 100%;
 }
+
+
+.disabled-button {
+  cursor: not-allowed; 
+}
+
+button{
+  cursor: pointer;
+  border-radius: 10px;
+  width: 70px;
+}
+
 

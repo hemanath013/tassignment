@@ -15,8 +15,10 @@
 
 
                 <li class="serchy">
-                    <input type="search" placeholder="search for" >
+                    <input type="search" placeholder="search for" #search  (input)="searchTrigger($event)">
+
                 </li>
+                <!-- <button (click)="searchTrigger(search)">Search</button> -->
                 <!-- <li><img src="/assets/icons/2.png" alt=""></li> -->
                 <!-- <li class="nav-item dropdown">
                     <a class="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown">
@@ -30,7 +32,7 @@
                 </li> -->
 
                 <li class="carty">
-                    <a class="nav-link"  routerLink="cart"  href="#"><img src="/assets/icons/1.png" routerLink="cart"  alt=""></a>
+                    <a class="nav-link" [routerLink]="['/cart','true']" href="#"><img src="/assets/icons/shopping-cart.png" [routerLink]="['/cart']"     alt=""></a>
                 </li>
         </ul>
     </div> 
